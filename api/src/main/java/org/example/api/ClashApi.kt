@@ -6,6 +6,7 @@ import com.google.gson.reflect.TypeToken
 import org.example.api.pojo.Clan
 import org.example.api.pojo.ClanCapital
 import org.example.api.pojo.ClanResult
+import org.example.api.pojo.Member
 import org.example.api.tools.GsonUtil
 import java.nio.charset.Charset
 
@@ -90,5 +91,27 @@ class ClashApi(
         )
 
         return GsonUtil.fromJson(response, object : TypeToken<ClanResult<ClanCapital>>() {})
+    }
+
+    /**
+     * 获取部落成员信息.
+     */
+    @JvmOverloads
+    fun getClanMembers(
+        clanTag: String, limit: Int? = null,
+        after: String? = null,
+        before: String? = null
+    ): ClanResult<Member>? {
+        val response = this.get(
+            "$CLASH_API/clans/${encodeParam(clanTag)}/members${
+                builderParameter(
+                    limit,
+                    after,
+                    before
+                )
+            }"
+        )
+
+        return GsonUtil.fromJson(response, object : TypeToken<ClanResult<Member>>() {})
     }
 }
