@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: clash-server
+  data:
+    mongodb:
+      database: test
+      host: 20.222.98.100

@@ -1,5 +1,3 @@
-import cn.hutool.core.collection.CollUtil;
-import cn.hutool.core.collection.ListUtil;
 import org.example.api.ClashApi;
 import org.example.api.pojo.ClanCapital;
 import org.example.api.pojo.ClanResult;
@@ -8,9 +6,7 @@ import org.junit.jupiter.api.Test;
 import pojo.Mem;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-import java.util.stream.Stream;
 
 public class MyTest {
 
