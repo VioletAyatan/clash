@@ -3,10 +3,7 @@ package org.example.api
 import cn.hutool.core.util.URLUtil
 import cn.hutool.http.HttpRequest
 import com.google.gson.reflect.TypeToken
-import org.example.api.pojo.Clan
-import org.example.api.pojo.ClanCapital
-import org.example.api.pojo.ClanResult
-import org.example.api.pojo.Member
+import org.example.api.pojo.*
 import org.example.api.tools.GsonUtil
 import java.nio.charset.Charset
 
@@ -19,20 +16,31 @@ class ClashApi(
     }
 
 
-    private fun get(url: String): String {
-        val body = HttpRequest.get(url)
+    private fun get(url: String): String? {
+        val response = HttpRequest.get(url)
             .bearerAuth(TOKEN)
             .execute()
             .body()
-//        println("body = ${body}")
-        return body
+        return if (valid(response)) {
+            response
+        } else
+            null
     }
 
-    private fun post(url: String): String {
-        return HttpRequest.post(url)
+    private fun post(url: String): String? {
+        val response = HttpRequest.post(url)
             .bearerAuth(TOKEN)
             .execute()
             .body()
+        return if (valid(response)) {
+            response
+        } else
+            null
+    }
+
+    private fun valid(json: String): Boolean {
+        val errorResponse = GsonUtil.fromJson(json, ClashErrorResponse::class.java)
+        return errorResponse.reason.isNotBlank()
     }
 
     /**
@@ -61,11 +69,11 @@ class ClashApi(
     /**
      * 通过部落标签获取单个部落的信息。
      */
-    fun getClansInformation(clanTag: String): Clan {
-        val response = HttpRequest.get("$CLASH_API/clans/${encodeParam(clanTag)}")
-            .bearerAuth(TOKEN)
-            .execute().body()
-        return GsonUtil.fromJson(response, Clan::class.java)
+    fun getClansInformation(clanTag: String): Clan? {
+        val response = this.get("$CLASH_API/clans/${encodeParam(clanTag)}")
+        return if (response != null) {
+            GsonUtil.fromJson(response, Clan::class.java)
+        } else null
     }
 
 
@@ -89,7 +97,6 @@ class ClashApi(
                 )
             }"
         )
-
         return GsonUtil.fromJson(response, object : TypeToken<ClanResult<ClanCapital>>() {})
     }
 
@@ -111,6 +118,7 @@ class ClashApi(
                 )
             }"
         )
+
 
         return GsonUtil.fromJson(response, object : TypeToken<ClanResult<Member>>() {})
     }

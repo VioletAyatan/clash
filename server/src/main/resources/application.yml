@@ -3,5 +3,6 @@ spring:
     name: clash-server
   data:
     mongodb:
-      database: test
-      host: 20.222.98.100
+      host: localhost
+      port: 27017
+      database: clash

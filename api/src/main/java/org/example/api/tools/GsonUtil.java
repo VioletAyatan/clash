@@ -2,6 +2,7 @@ package org.example.api.tools;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
@@ -54,4 +55,7 @@ public class GsonUtil {
         return gson.toJson(obj, typeof);
     }
 
+    public static JsonElement toJsonTree(Object src) {
+        return gson.toJsonTree(src);
+    }
 }
