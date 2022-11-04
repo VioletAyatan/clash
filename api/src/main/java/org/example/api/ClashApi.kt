@@ -126,4 +126,22 @@ class ClashApi(
         )
         return GsonUtil.fromJson(response, object : TypeToken<ClanResult<Member>>() {})
     }
+
+    /**
+     * 查询部落当前的联赛组信息
+     * @throws ClashApiException 如果调用api发生了错误，则抛出此异常.
+     */
+    fun getClansCurrentWarLeaguegroup(clanTag: String): ClashWarLeagueGroup {
+        val response = this.get("$CLASH_API/clans/${encodeParam(clanTag)}/currentwar/leaguegroup")
+        return GsonUtil.fromJson(response, ClashWarLeagueGroup::class.java)
+    }
+
+    /**
+     * 查询部落指定联赛场次信息
+     * @throws ClashApiException 如果调用api发生了错误，则抛出此异常.
+     */
+    fun getClanWarLeagueInformation(warTag: String): ClanWarLeagueInfo {
+        val response = this.get("$CLASH_API/clanwarleagues/wars/${encodeParam(warTag)}")
+        return GsonUtil.fromJson(response, ClanWarLeagueInfo::class.java)
+    }
 }
