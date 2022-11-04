@@ -1,0 +1,297 @@
+{
+  "items": [
+    {
+      "state": "ended",
+      "startTime": "20221028T070000.000Z",
+      "endTime": "20221031T070000.000Z",
+      "capitalTotalLoot": 428638,
+      "raidsCompleted": 14,
+      "totalAttacks": 200,
+      "enemyDistrictsDestroyed": 56,
+      "offensiveReward": 126,
+      "defensiveReward": 199,
+      "members": [
+        {
+          "tag": "#LLPR82G9P",
+          "name": "请你哥乌恩",
+          "attacks": 6,
+          "attackLimit": 5,
+          "bonusAttackLimit": 1,
+          "capitalResourcesLooted": 12498
+        },
+        {
+          "tag": "#QQPQYYGLC",
+          "name": "blue249",
+          "attacks": 6,
+          "attackLimit": 5,
+          "bonusAttackLimit": 1,
+          "capitalResourcesLooted": 12190
+        },
+        {
+          "tag": "#QL28PQ8P2",
+          "name": "無.",
+          "attacks": 6,
+          "attackLimit": 5,
+          "bonusAttackLimit": 1,
+          "capitalResourcesLooted": 14002
+        },
+        {
+          "tag": "#QQLC00UP2",
+          "name": "Misaka❤️Mikoto",
+          "attacks": 6,
+          "attackLimit": 5,
+          "bonusAttackLimit": 1,
+          "capitalResourcesLooted": 15754
+        },
+        {
+          "tag": "#QRPQURJRU",
+          "name": "空空",
+          "attacks": 6,
+          "attackLimit": 5,
+          "bonusAttackLimit": 1,
+          "capitalResourcesLooted": 15103
+        },
+        {
+          "tag": "#QJUPY9QVL",
+          "name": "Nine stars",
+          "attacks": 6,
+          "attackLimit": 5,
+          "bonusAttackLimit": 1,
+          "capitalResourcesLooted": 12042
+        },
+        {
+          "tag": "#QRPY0G2UY",
+          "name": "白云琉星",
+          "attacks": 6,
+          "attackLimit": 5,
+          "bonusAttackLimit": 1,
+          "capitalResourcesLooted": 12632
+        },
+        {
+          "tag": "#QC0PQ9YCV",
+          "name": "qwerty",
+          "attacks": 6,
+          "attackLimit": 5,
+          "bonusAttackLimit": 1,
+          "capitalResourcesLooted": 14170
+        },
+        {
+          "tag": "#QRLV2Q0CL",
+          "name": "DeepBlue",
+          "attacks": 6,
+          "attackLimit": 5,
+          "bonusAttackLimit": 1,
+          "capitalResourcesLooted": 15055
+        },
+        {
+          "tag": "#PR8JVJ90V",
+          "name": "天下无敌",
+          "attacks": 6,
+          "attackLimit": 5,
+          "bonusAttackLimit": 1,
+          "capitalResourcesLooted": 7805
+        },
+        {
+          "tag": "#202GYQY8",
+          "name": "送人头大魔王",
+          "attacks": 6,
+          "attackLimit": 5,
+          "bonusAttackLimit": 1,
+          "capitalResourcesLooted": 16665
+        },
+        {
+          "tag": "#QC0GGU99L",
+          "name": "南笺",
+          "attacks": 6,
+          "attackLimit": 5,
+          "bonusAttackLimit": 1,
+          "capitalResourcesLooted": 12895
+        },
+        {
+          "tag": "#QU2GY8080",
+          "name": "啊吧啊吧",
+          "attacks": 6,
+          "attackLimit": 5,
+          "bonusAttackLimit": 1,
+          "capitalResourcesLooted": 16347
+        },
+        {
+          "tag": "#QJVQC2U90",
+          "name": "与树",
+          "attacks": 6,
+          "attackLimit": 5,
+          "bonusAttackLimit": 1,
+          "capitalResourcesLooted": 8563
+        },
+        {
+          "tag": "#QCG2GLR2P",
+          "name": "小战士 翔",
+          "attacks": 5,
+          "attackLimit": 5,
+          "bonusAttackLimit": 0,
+          "capitalResourcesLooted": 2440
+        },
+        {
+          "tag": "#QRRPPPQQR",
+          "name": "聚星灵殿-110",
+          "attacks": 6,
+          "attackLimit": 5,
+          "bonusAttackLimit": 1,
+          "capitalResourcesLooted": 11075
+        },
+        {
+          "tag": "#QJ0CJYLVR",
+          "name": "神隐的捐兵工具人",
+          "attacks": 6,
+          "attackLimit": 5,
+          "bonusAttackLimit": 1,
+          "capitalResourcesLooted": 18280
+        },
+        {
+          "tag": "#QRVLQ2JLV",
+          "name": "老外我又来辣",
+          "attacks": 6,
+          "attackLimit": 5,
+          "bonusAttackLimit": 1,
+          "capitalResourcesLooted": 12575
+        },
+        {
+          "tag": "#QJ2RYPJP8",
+          "name": "国际新号",
+          "attacks": 6,
+          "attackLimit": 5,
+          "bonusAttackLimit": 1,
+          "capitalResourcesLooted": 12114
+        },
+        {
+          "tag": "#QQ22YPJVJ",
+          "name": "莉雪帝国",
+          "attacks": 5,
+          "attackLimit": 5,
+          "bonusAttackLimit": 0,
+          "capitalResourcesLooted": 9580
+        },
+        {
+          "tag": "#QU9V909C9",
+          "name": "China：peak",
+          "attacks": 6,
+          "attackLimit": 5,
+          "bonusAttackLimit": 1,
+          "capitalResourcesLooted": 11840
+        },
+        {
+          "tag": "#QCUR8RJCY",
+          "name": "double fish",
+          "attacks": 6,
+          "attackLimit": 5,
+          "bonusAttackLimit": 1,
+          "capitalResourcesLooted": 12596
+        },
+        {
+          "tag": "#QU0GY9UC0",
+          "name": "一叶知秋",
+          "attacks": 2,
+          "attackLimit": 5,
+          "bonusAttackLimit": 1,
+          "capitalResourcesLooted": 1612
+        },
+        {
+          "tag": "#LCRPLULQJ",
+          "name": "Juan",
+          "attacks": 6,
+          "attackLimit": 5,
+          "bonusAttackLimit": 1,
+          "capitalResourcesLooted": 13295
+        },
+        {
+          "tag": "#29982JLQC",
+          "name": "顶级炮灰",
+          "attacks": 6,
+          "attackLimit": 5,
+          "bonusAttackLimit": 1,
+          "capitalResourcesLooted": 12435
+        },
+        {
+          "tag": "#QCVCVVUJ2",
+          "name": "China 陌空",
+          "attacks": 6,
+          "attackLimit": 5,
+          "bonusAttackLimit": 1,
+          "capitalResourcesLooted": 13920
+        },
+        {
+          "tag": "#QG2UVY8CY",
+          "name": "losjes",
+          "attacks": 6,
+          "attackLimit": 5,
+          "bonusAttackLimit": 1,
+          "capitalResourcesLooted": 17060
+        },
+        {
+          "tag": "#QRPPPR0JU",
+          "name": "imcherry",
+          "attacks": 2,
+          "attackLimit": 5,
+          "bonusAttackLimit": 0,
+          "capitalResourcesLooted": 3870
+        },
+        {
+          "tag": "#QR29J0LVY",
+          "name": "神隐",
+          "attacks": 6,
+          "attackLimit": 5,
+          "bonusAttackLimit": 1,
+          "capitalResourcesLooted": 16248
+        },
+        {
+          "tag": "#QJ0J0UR28",
+          "name": "ChinaNB",
+          "attacks": 6,
+          "attackLimit": 5,
+          "bonusAttackLimit": 1,
+          "capitalResourcesLooted": 10854
+        },
+        {
+          "tag": "#QG809VVLY",
+          "name": "我的村庄叫做……",
+          "attacks": 6,
+          "attackLimit": 5,
+          "bonusAttackLimit": 1,
+          "capitalResourcesLooted": 11135
+        },
+        {
+          "tag": "#QL99808YR",
+          "name": "SATYESH :)",
+          "attacks": 6,
+          "attackLimit": 5,
+          "bonusAttackLimit": 1,
+          "capitalResourcesLooted": 10675
+        },
+        {
+          "tag": "#QGQLU90G0",
+          "name": "Mamba24",
+          "attacks": 6,
+          "attackLimit": 5,
+          "bonusAttackLimit": 1,
+          "capitalResourcesLooted": 12640
+        },
+        {
+          "tag": "#QGCRJJR0L",
+          "name": "pessoa Ronny",
+          "attacks": 6,
+          "attackLimit": 5,
+          "bonusAttackLimit": 1,
+          "capitalResourcesLooted": 12535
+        },
+        {
+          "tag": "#QPVJC2Y8P",
+          "name": "空空",
+          "attacks": 6,
+          "attackLimit": 5,
+          "bonusAttackLimit": 1,
+          "capitalResourcesLooted": 16138
+        }
+      ]
+    }
+  ]
+}
