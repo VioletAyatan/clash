@@ -82,7 +82,7 @@ class ClashApi(
 
 
     /**
-     * 获取部落周末突袭相关信息
+     * 获取指定部落周末突袭相关信息
      * @param clanTag ClanTag
      * @throws ClashApiException 如果调用api发生了错误，则抛出此异常.
      */
@@ -92,7 +92,7 @@ class ClashApi(
         limit: Int? = null,
         after: String? = null,
         before: String? = null
-    ): ClanResult<ClanCapital>? {
+    ): ClanResult<ClanCapital> {
         val response = this.get(
             "$CLASH_API/clans/${encodeParam(clanTag)}/capitalraidseasons${
                 builderParameter(
@@ -102,10 +102,7 @@ class ClashApi(
                 )
             }"
         )
-        return when (response) {
-            is String -> GsonUtil.fromJson(response, object : TypeToken<ClanResult<ClanCapital>>() {})
-            else -> null
-        }
+        return GsonUtil.fromJson(response, object : TypeToken<ClanResult<ClanCapital>>() {})
     }
 
     /**
@@ -117,7 +114,7 @@ class ClashApi(
         clanTag: String, limit: Int? = null,
         after: String? = null,
         before: String? = null
-    ): ClanResult<Member>? {
+    ): ClanResult<Member> {
         val response = this.get(
             "$CLASH_API/clans/${encodeParam(clanTag)}/members${
                 builderParameter(
@@ -127,9 +124,6 @@ class ClashApi(
                 )
             }"
         )
-        return when (response) {
-            is String -> GsonUtil.fromJson(response, object : TypeToken<ClanResult<Member>>() {})
-            else -> null
-        }
+        return GsonUtil.fromJson(response, object : TypeToken<ClanResult<Member>>() {})
     }
 }
