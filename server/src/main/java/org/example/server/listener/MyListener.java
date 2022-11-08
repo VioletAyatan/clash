@@ -2,6 +2,7 @@ package org.example.server.listener;
 
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.IdUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.example.api.ClashApi;
 import org.example.api.exception.ClashApiException;
 import org.example.api.pojo.ClanCapital;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+@Slf4j
 @Component
 public class MyListener implements InitializingBean {
 
@@ -28,8 +30,13 @@ public class MyListener implements InitializingBean {
             ClanResult<ClanCapital> raidSeason = clashApi.getClanCapitalRaidSeason("#280Y0YGPJ", 1);
             ClanCapital clanCapital = raidSeason.getItems().get(0);
             RaidSeasonDao raidSeasonDao = this.toRaidSeason(clanCapital);
-            //记录入库...
-            raidSeasonRepository.save(raidSeasonDao);
+
+            if (!raidSeasonRepository.existsByRaidStartTime(raidSeasonDao.getRaidStartTime())) {
+                //记录入库...
+                raidSeasonRepository.save(raidSeasonDao);
+            } else {
+                log.warn("The Raid log entry for {} is already existed!",raidSeasonDao.getRaidStartTime());
+            }
         } catch (ClashApiException e) {
             System.err.println("API调用出错：" + e.getMessage() + " 详情：" + e.getDetailMessage());
         }

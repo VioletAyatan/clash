@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface RaidSeasonRepository extends CrudRepository<RaidSeasonDao, String> {
+
+    boolean existsByRaidStartTime(String raidStartTime);
 }

@@ -21,13 +21,12 @@ import java.util.List;
 
 public class MyTest {
 
-    private final ClashApi clashApi = new ClashApi("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiIsImtpZCI6IjI4YTMxOGY3LT" +
-            "AwMDAtYTFlYi03ZmExLTJjNzQzM2M2Y2NhNSJ9.eyJpc3MiOiJzdXBlcmNlbGwiLCJhdWQiOiJzdXBlcmNlbGw6Z2FtZWFwaSIs" +
-            "Imp0aSI6Ijc4Yzg5Yzg0LTcxMDEtNGVlNC04M2FmLWJmNDZmNTk2NDVkMiIsImlhdCI6MTY2NzUyNDc0OSwic3ViIjoiZGV2ZWx" +
-            "vcGVyL2U5YWUxNzQwLThiNjgtYzAzZS04ZjIzLTkzODAwNWU0YzA5OSIsInNjb3BlcyI6WyJjbGFzaCJdLCJsaW1pdHMiOlt7In" +
-            "RpZXIiOiJkZXZlbG9wZXIvc2lsdmVyIiwidHlwZSI6InRocm90dGxpbmcifSx7ImNpZHJzIjpbIjE3MS4yMTcuMTMyLjQiLCIxNz" +
-            "EuMjE3LjEzMS4xNDAiLCIxMTguMTEyLjg4LjIxMyJdLCJ0eXBlIjoiY2xpZW50In1dfQ.z3C7rmKSK9Dd15WDBFUXW3kiiTZZ9m" +
-            "4tvpGn1hwWPtoxrZfwY8ZK7kzT2CzAVEu3vb_f5lcDiU87w5Qt5EHUVw");
+    private final ClashApi clashApi = new ClashApi("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiIsImtpZCI6IjI4YTMxOGY3LTA" +
+            "wMDAtYTFlYi03ZmExLTJjNzQzM2M2Y2NhNSJ9.eyJpc3MiOiJzdXBlcmNlbGwiLCJhdWQiOiJzdXBlcmNlbGw6Z2FtZWFwaSIsImp0aSI6" +
+            "ImQ4NzJlMzc0LTg4NjUtNDc3NS04OTk3LTkwNTI5NDJlNDA4OSIsImlhdCI6MTY2Nzg3ODE0Mywic3ViIjoiZGV2ZWxvcGVyL2U5YWUxN" +
+            "zQwLThiNjgtYzAzZS04ZjIzLTkzODAwNWU0YzA5OSIsInNjb3BlcyI6WyJjbGFzaCJdLCJsaW1pdHMiOlt7InRpZXIiOiJkZXZlbG9wZX" +
+            "Ivc2lsdmVyIiwidHlwZSI6InRocm90dGxpbmcifSx7ImNpZHJzIjpbIjExOC4xMTMuMjI5LjI2Il0sInR5cGUiOiJjbGllbnQifV19.7j" +
+            "qSTN2lCsWEw87WXZQEpQNxoZ6jEaq6DDHjVh7NBQgRYij_XODRScFxuCxgkiABN7uYVsaIEceahZ3pp2zSoQ");
 
     @Test
     void test() {

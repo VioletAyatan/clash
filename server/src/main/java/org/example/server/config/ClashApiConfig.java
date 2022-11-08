@@ -9,15 +9,6 @@ public class ClashApiConfig {
 
     @Bean
     public ClashApi clashApi() {
-        return new ClashApi("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiIsImtpZCI6" +
-                "IjI4YTMxOGY3LTAwMDAtYTFlYi03ZmExLTJjNzQzM2M2Y2NhNSJ9.eyJpc3MiOiJ" +
-                "zdXBlcmNlbGwiLCJhdWQiOiJzdXBlcmNlbGw6Z2FtZWFwaSIsImp0aSI6Ijc4Yzg" +
-                "5Yzg0LTcxMDEtNGVlNC04M2FmLWJmNDZmNTk2NDVkMiIsImlhdCI6MTY2NzUyNDc" +
-                "0OSwic3ViIjoiZGV2ZWxvcGVyL2U5YWUxNzQwLThiNjgtYzAzZS04ZjIzLTkzODA" +
-                "wNWU0YzA5OSIsInNjb3BlcyI6WyJjbGFzaCJdLCJsaW1pdHMiOlt7InRpZXIiOiJk" +
-                "ZXZlbG9wZXIvc2lsdmVyIiwidHlwZSI6InRocm90dGxpbmcifSx7ImNpZHJzIjpbI" +
-                "jE3MS4yMTcuMTMyLjQiLCIxNzEuMjE3LjEzMS4xNDAiLCIxMTguMTEyLjg4LjIxMy" +
-                "JdLCJ0eXBlIjoiY2xpZW50In1dfQ.z3C7rmKSK9Dd15WDBFUXW3kiiTZZ9m4tvpGn" +
-                "1hwWPtoxrZfwY8ZK7kzT2CzAVEu3vb_f5lcDiU87w5Qt5EHUVw");
+        return new ClashApi("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiIsImtpZCI6IjI4YTMxOGY3LTAwMDAtYTFlYi03ZmExLTJjNzQzM2M2Y2NhNSJ9.eyJpc3MiOiJzdXBlcmNlbGwiLCJhdWQiOiJzdXBlcmNlbGw6Z2FtZWFwaSIsImp0aSI6IjczM2QwNDg0LTlhZDItNDAzMy05Yzk2LTRmOTM3NWRkY2FkNyIsImlhdCI6MTY2Nzg4ODM1MSwic3ViIjoiZGV2ZWxvcGVyL2U5YWUxNzQwLThiNjgtYzAzZS04ZjIzLTkzODAwNWU0YzA5OSIsInNjb3BlcyI6WyJjbGFzaCJdLCJsaW1pdHMiOlt7InRpZXIiOiJkZXZlbG9wZXIvc2lsdmVyIiwidHlwZSI6InRocm90dGxpbmcifSx7ImNpZHJzIjpbIjIxOC44OS4yMzcuMTI2IiwiMTE4LjExMy4yMjkuMjYiXSwidHlwZSI6ImNsaWVudCJ9XX0.hHgTzfM98kdURcDizvA2a00kW0Wf2YQY-R3Maesi_TFgXAKtrPSPENugUKXRaM6rlnWRE0pFSI_ZUiB575lcHA");
     }
 }
