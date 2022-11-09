@@ -1,4 +1,4 @@
-package org.example.server.listener;
+package org.example.server.bean;
 
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.IdUtil;
@@ -13,10 +13,12 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Slf4j
 @Component
-public class MyListener implements InitializingBean {
-
+public class RaidSeasonCollector implements InitializingBean {
 
     @Autowired
     private ClashApi clashApi;
@@ -35,7 +37,7 @@ public class MyListener implements InitializingBean {
                 //记录入库...
                 raidSeasonRepository.save(raidSeasonDao);
             } else {
-                log.warn("The Raid log entry for {} is already existed!",raidSeasonDao.getRaidStartTime());
+                log.warn("The Raid log entry for {} is already existed!", raidSeasonDao.getRaidStartTime());
             }
         } catch (ClashApiException e) {
             System.err.println("API调用出错：" + e.getMessage() + " 详情：" + e.getDetailMessage());
@@ -43,6 +45,19 @@ public class MyListener implements InitializingBean {
     }
 
     private RaidSeasonDao toRaidSeason(ClanCapital clanCapital) {
+        List<RaidSeasonDao.UnAttackMember> allMembers = new ArrayList<>(clashApi.getClanMembers("#280Y0YGPJ")
+                .getItems()
+                .stream()
+                .map(item -> new RaidSeasonDao.UnAttackMember()
+                        .setName(item.getName())
+                        .setTag(item.getTag())).toList());
+        List<RaidSeasonDao.UnAttackMember> attackMembers = clanCapital.getMembers().stream()
+                .map(item -> new RaidSeasonDao.UnAttackMember()
+                        .setName(item.getName())
+                        .setTag(item.getTag())
+                ).toList();
+        allMembers.removeAll(attackMembers);
+
         return new RaidSeasonDao()
                 .setId(IdUtil.simpleUUID())
                 .setCreateTime(DateUtil.date())
@@ -65,7 +80,7 @@ public class MyListener implements InitializingBean {
                                         .setCapitalResourcesLooted(item.getCapitalResourcesLooted())
                                 )
                                 .toList()
-                );
-
+                )
+                .setNoAttackMembers(allMembers);
     }
 }

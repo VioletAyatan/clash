@@ -4,6 +4,7 @@ import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -38,7 +39,11 @@ public class RaidSeasonDao {
     /**
      * 参与进攻的成员
      */
-    private List<MembersBean> members;
+    private List<MembersBean> members = Collections.emptyList();
+    /**
+     * 未参与进攻的成员.
+     */
+    private List<UnAttackMember> noAttackMembers = Collections.emptyList();
     /**
      * 总进攻次数
      */
@@ -60,5 +65,11 @@ public class RaidSeasonDao {
         private Short attackLimit = 5;
         private Short bonusAttackLimit = 0;
         private Integer capitalResourcesLooted;
+    }
+
+    @Data
+    public static class UnAttackMember {
+        private String tag;
+        private String name;
     }
 }

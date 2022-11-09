@@ -21,13 +21,7 @@ import java.util.List;
 
 public class MyTest {
 
-    private final ClashApi clashApi = new ClashApi("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiIsImtpZCI6IjI4YTMxOGY3LTA" +
-            "wMDAtYTFlYi03ZmExLTJjNzQzM2M2Y2NhNSJ9.eyJpc3MiOiJzdXBlcmNlbGwiLCJhdWQiOiJzdXBlcmNlbGw6Z2FtZWFwaSIsImp0aSI6" +
-            "ImQ4NzJlMzc0LTg4NjUtNDc3NS04OTk3LTkwNTI5NDJlNDA4OSIsImlhdCI6MTY2Nzg3ODE0Mywic3ViIjoiZGV2ZWxvcGVyL2U5YWUxN" +
-            "zQwLThiNjgtYzAzZS04ZjIzLTkzODAwNWU0YzA5OSIsInNjb3BlcyI6WyJjbGFzaCJdLCJsaW1pdHMiOlt7InRpZXIiOiJkZXZlbG9wZX" +
-            "Ivc2lsdmVyIiwidHlwZSI6InRocm90dGxpbmcifSx7ImNpZHJzIjpbIjExOC4xMTMuMjI5LjI2Il0sInR5cGUiOiJjbGllbnQifV19.7j" +
-            "qSTN2lCsWEw87WXZQEpQNxoZ6jEaq6DDHjVh7NBQgRYij_XODRScFxuCxgkiABN7uYVsaIEceahZ3pp2zSoQ");
-
+    private final ClashApi clashApi = new ClashApi("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiIsImtpZCI6IjI4YTMxOGY3LTAwMDAtYTFlYi03ZmExLTJjNzQzM2M2Y2NhNSJ9.eyJpc3MiOiJzdXBlcmNlbGwiLCJhdWQiOiJzdXBlcmNlbGw6Z2FtZWFwaSIsImp0aSI6IjY0MTFkMmY0LTQ3MDAtNGY5Mi05ODIxLTYzYTc5MjBjYmM5NCIsImlhdCI6MTY2Nzk3NjczMCwic3ViIjoiZGV2ZWxvcGVyL2U5YWUxNzQwLThiNjgtYzAzZS04ZjIzLTkzODAwNWU0YzA5OSIsInNjb3BlcyI6WyJjbGFzaCJdLCJsaW1pdHMiOlt7InRpZXIiOiJkZXZlbG9wZXIvc2lsdmVyIiwidHlwZSI6InRocm90dGxpbmcifSx7ImNpZHJzIjpbIjE3MS4yMTcuMTMxLjExMiIsIjE3MS4yMTcuMTMxLjEyMyJdLCJ0eXBlIjoiY2xpZW50In1dfQ.RJGIUQ6Qk9lGILHg0ple9P9oOL4m-9aDbLYSOl1D3R0iTPE8fIuV_Uob9kH2Mn4f6UpCNDNHbEIaFm3Af1xO_g");
     @Test
     void test() {
         try {
@@ -58,7 +52,15 @@ public class MyTest {
             System.err.println("API调用出错，原因：" + e.getMessage() + " 细节：" + e.getDetailMessage());
         }
     }
-
+    @Test
+    void test2() {
+        try {
+            ClanResult<Member> clanMembers = clashApi.getClanMembers("#280Y0YGPJ");
+            System.out.println("clanMembers = " + clanMembers);
+        } catch (ClashApiException e) {
+            System.err.println("API调用出错，原因：" + e.getMessage() + " 细节：" + e.getDetailMessage());
+        }
+    }
     @Test
     void export() {
         try {

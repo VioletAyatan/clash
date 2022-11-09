@@ -3,6 +3,10 @@ package org.example.api
 import cn.hutool.core.util.URLUtil
 import cn.hutool.http.HttpRequest
 import com.google.gson.reflect.TypeToken
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.Types
+import com.squareup.moshi.adapter
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import org.example.api.exception.ClashApiException
 import org.example.api.pojo.*
 import org.example.api.tools.GsonUtil
@@ -14,12 +18,17 @@ class ClashApi(
 
     private var errorResponse: ClashErrorResponse? = null
 
+    private val moshi = Moshi
+        .Builder()
+        .addLast(KotlinJsonAdapterFactory())
+        .build()
+
     companion object {
         const val CLASH_API = "https://api.clashofclans.com/v1"
     }
 
 
-    private fun get(url: String): String? {
+    private fun get(url: String): String {
         val response = HttpRequest.get(url)
             .bearerAuth(TOKEN)
             .execute()
@@ -29,7 +38,7 @@ class ClashApi(
         }
     }
 
-    private fun post(url: String): String? {
+    private fun post(url: String): String {
         val response = HttpRequest.post(url)
             .bearerAuth(TOKEN)
             .execute()
@@ -92,7 +101,7 @@ class ClashApi(
         limit: Int? = null,
         after: String? = null,
         before: String? = null
-    ): ClanResult<ClanCapital> {
+    ): ClanResult<ClanCapital>? {
         val response = this.get(
             "$CLASH_API/clans/${encodeParam(clanTag)}/capitalraidseasons${
                 builderParameter(
@@ -102,7 +111,8 @@ class ClashApi(
                 )
             }"
         )
-        return GsonUtil.fromJson(response, object : TypeToken<ClanResult<ClanCapital>>() {})
+        val jsonAdapter = moshi.adapter<ClanResult<ClanCapital>>(Types.newParameterizedType(ClanResult::class.java, ClanCapital::class.java))
+        return jsonAdapter.fromJson(response)
     }
 
     /**
@@ -114,7 +124,7 @@ class ClashApi(
         clanTag: String, limit: Int? = null,
         after: String? = null,
         before: String? = null
-    ): ClanResult<Member> {
+    ): ClanResult<Member>? {
         val response = this.get(
             "$CLASH_API/clans/${encodeParam(clanTag)}/members${
                 builderParameter(
@@ -124,24 +134,27 @@ class ClashApi(
                 )
             }"
         )
-        return GsonUtil.fromJson(response, object : TypeToken<ClanResult<Member>>() {})
+        val jsonAdapter = moshi.adapter<ClanResult<Member>>(Types.newParameterizedType(ClanResult::class.java, Member::class.java))
+        return jsonAdapter.fromJson(response)
     }
 
     /**
      * 查询部落当前的联赛组信息
      * @throws ClashApiException 如果调用api发生了错误，则抛出此异常.
      */
-    fun getClansCurrentWarLeaguegroup(clanTag: String): ClashWarLeagueGroup {
+    fun getClansCurrentWarLeaguegroup(clanTag: String): ClashWarLeagueGroup? {
         val response = this.get("$CLASH_API/clans/${encodeParam(clanTag)}/currentwar/leaguegroup")
-        return GsonUtil.fromJson(response, ClashWarLeagueGroup::class.java)
+        val jsonAdapter = moshi.adapter(ClashWarLeagueGroup::class.java)
+        return jsonAdapter.fromJson(response)
     }
 
     /**
      * 查询部落指定联赛场次信息
      * @throws ClashApiException 如果调用api发生了错误，则抛出此异常.
      */
-    fun getClanWarLeagueInformation(warTag: String): ClanWarLeagueInfo {
+    fun getClanWarLeagueInformation(warTag: String): ClanWarLeagueInfo? {
         val response = this.get("$CLASH_API/clanwarleagues/wars/${encodeParam(warTag)}")
-        return GsonUtil.fromJson(response, ClanWarLeagueInfo::class.java)
+        val jsonAdapter = moshi.adapter(ClanWarLeagueInfo::class.java)
+        return jsonAdapter.fromJson(response)
     }
 }
