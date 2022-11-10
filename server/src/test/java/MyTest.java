@@ -1,4 +1,3 @@
-import cn.hutool.core.date.DatePattern;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.io.FileUtil;
 import com.google.gson.Gson;
@@ -7,9 +6,7 @@ import org.example.api.ClashApi;
 import org.example.api.exception.ClashApiException;
 import org.example.api.pojo.ClanCapital;
 import org.example.api.pojo.ClanResult;
-import org.example.api.pojo.ClashErrorResponse;
 import org.example.api.pojo.Member;
-import org.example.api.tools.GsonUtil;
 import org.junit.jupiter.api.Test;
 import pojo.Mem;
 

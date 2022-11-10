@@ -72,13 +72,6 @@ class ClashApi(
     }
 
     /**
-     * 调用api发生错误时
-     * 调用此api获取错误信息描述.
-     * @return 错误信息描述实体
-     */
-    fun getErrorMessage() = errorResponse
-
-    /**
      * 通过部落标签获取单个部落的信息.
      * @throws ClashApiException 如果调用api发生了错误，则抛出此异常.
      */
@@ -101,7 +94,7 @@ class ClashApi(
         limit: Int? = null,
         after: String? = null,
         before: String? = null
-    ): ClanResult<ClanCapital>? {
+    ): ClanResult<ClanCapital> {
         val response = this.get(
             "$CLASH_API/clans/${encodeParam(clanTag)}/capitalraidseasons${
                 builderParameter(
@@ -112,7 +105,7 @@ class ClashApi(
             }"
         )
         val jsonAdapter = moshi.adapter<ClanResult<ClanCapital>>(Types.newParameterizedType(ClanResult::class.java, ClanCapital::class.java))
-        return jsonAdapter.fromJson(response)
+        return jsonAdapter.fromJson(response)!!
     }
 
     /**
@@ -124,7 +117,7 @@ class ClashApi(
         clanTag: String, limit: Int? = null,
         after: String? = null,
         before: String? = null
-    ): ClanResult<Member>? {
+    ): ClanResult<Member> {
         val response = this.get(
             "$CLASH_API/clans/${encodeParam(clanTag)}/members${
                 builderParameter(
@@ -135,26 +128,26 @@ class ClashApi(
             }"
         )
         val jsonAdapter = moshi.adapter<ClanResult<Member>>(Types.newParameterizedType(ClanResult::class.java, Member::class.java))
-        return jsonAdapter.fromJson(response)
+        return jsonAdapter.fromJson(response)!!
     }
 
     /**
      * 查询部落当前的联赛组信息
      * @throws ClashApiException 如果调用api发生了错误，则抛出此异常.
      */
-    fun getClansCurrentWarLeaguegroup(clanTag: String): ClashWarLeagueGroup? {
+    fun getClansCurrentWarLeaguegroup(clanTag: String): ClashWarLeagueGroup {
         val response = this.get("$CLASH_API/clans/${encodeParam(clanTag)}/currentwar/leaguegroup")
         val jsonAdapter = moshi.adapter(ClashWarLeagueGroup::class.java)
-        return jsonAdapter.fromJson(response)
+        return jsonAdapter.fromJson(response)!!
     }
 
     /**
      * 查询部落指定联赛场次信息
      * @throws ClashApiException 如果调用api发生了错误，则抛出此异常.
      */
-    fun getClanWarLeagueInformation(warTag: String): ClanWarLeagueInfo? {
+    fun getClanWarLeagueInformation(warTag: String): ClanWarLeagueInfo {
         val response = this.get("$CLASH_API/clanwarleagues/wars/${encodeParam(warTag)}")
         val jsonAdapter = moshi.adapter(ClanWarLeagueInfo::class.java)
-        return jsonAdapter.fromJson(response)
+        return jsonAdapter.fromJson(response)!!
     }
 }
