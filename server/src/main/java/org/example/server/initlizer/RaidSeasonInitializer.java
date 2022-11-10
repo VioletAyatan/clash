@@ -45,12 +45,44 @@ public class RaidSeasonInitializer implements InitializingBean {
 
     private RaidSeasonDao toRaidSeason(ClanCapital clanCapital) {
         //获取未进攻的成员信息👇
-        List<RaidSeasonDao.UnAttackMember> allMembers = new ArrayList<>(clashApi.getClanMembers("#280Y0YGPJ").getItems().stream().map(item -> new RaidSeasonDao.UnAttackMember().setName(item.getName()).setTag(item.getTag())).toList());
+        List<RaidSeasonDao.UnAttackMember> allMembers = new ArrayList<>(clashApi.getClanMembers("#280Y0YGPJ")
+                .getItems()
+                .stream()
+                .map(item -> new RaidSeasonDao.UnAttackMember()
+                        .setName(item.getName())
+                        .setTag(item.getTag()))
+                .toList());
 
-        List<RaidSeasonDao.UnAttackMember> attackMembers = clanCapital.getMembers().stream().map(item -> new RaidSeasonDao.UnAttackMember().setName(item.getName()).setTag(item.getTag())).toList();
+        List<RaidSeasonDao.UnAttackMember> attackMembers = clanCapital.getMembers()
+                .stream()
+                .map(item -> new RaidSeasonDao.UnAttackMember()
+                        .setName(item.getName())
+                        .setTag(item.getTag()))
+                .toList();
 
         allMembers.removeAll(attackMembers);
         // 设值，准备入库
-        return new RaidSeasonDao().setId(IdUtil.simpleUUID()).setCreateTime(DateUtil.date()).setRaidsCompleted(clanCapital.getRaidsCompleted()).setOffensiveReward(clanCapital.getOffensiveReward()).setDefensiveReward(clanCapital.getDefensiveReward()).setCapitalTotalLoot(clanCapital.getCapitalTotalLoot()).setTotalAttacks(clanCapital.getTotalAttacks()).setRaidStartTime(clanCapital.getStartTime()).setRaidEndTime(clanCapital.getEndTime()).setMembers(clanCapital.getMembers().stream().map(item -> new RaidSeasonDao.MembersBean().setTag(item.getTag()).setName(item.getName()).setAttacks(item.getAttacks()).setAttackLimit(item.getAttackLimit()).setBonusAttackLimit(item.getBonusAttackLimit()).setCapitalResourcesLooted(item.getCapitalResourcesLooted())).toList()).setNoAttackMembers(allMembers);
+        return new RaidSeasonDao()
+                .setId(IdUtil.simpleUUID())
+                .setCreateTime(DateUtil.date())
+                .setRaidsCompleted(clanCapital.getRaidsCompleted())
+                .setOffensiveReward(clanCapital.getOffensiveReward())
+                .setDefensiveReward(clanCapital.getDefensiveReward())
+                .setCapitalTotalLoot(clanCapital.getCapitalTotalLoot())
+                .setTotalAttacks(clanCapital.getTotalAttacks())
+                .setRaidStartTime(clanCapital.getStartTime())
+                .setRaidEndTime(clanCapital.getEndTime())
+                .setMembers(clanCapital.getMembers()
+                        .stream()
+                        .map(item -> new RaidSeasonDao.MembersBean()
+                                .setTag(item.getTag())
+                                .setName(item.getName())
+                                .setAttacks(item.getAttacks())
+                                .setAttackLimit(item.getAttackLimit())
+                                .setBonusAttackLimit(item.getBonusAttackLimit())
+                                .setCapitalResourcesLooted(item.getCapitalResourcesLooted()))
+                        .toList()
+                )
+                .setNoAttackMembers(allMembers);
     }
 }
