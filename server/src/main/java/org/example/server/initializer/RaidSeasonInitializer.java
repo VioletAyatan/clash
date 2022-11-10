@@ -1,4 +1,4 @@
-package org.example.server.initlizer;
+package org.example.server.initializer;
 
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.IdUtil;
@@ -11,7 +11,6 @@ import org.example.api.pojo.ClanResult;
 import org.example.server.dao.RaidSeasonRepository;
 import org.example.server.dao.entity.RaidSeasonDao;
 import org.springframework.beans.factory.InitializingBean;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;

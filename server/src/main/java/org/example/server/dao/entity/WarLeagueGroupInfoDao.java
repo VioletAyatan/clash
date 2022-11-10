@@ -7,13 +7,17 @@ import org.springframework.data.mongodb.core.mapping.MongoId;
 
 import java.util.List;
 
+/**
+ * 存储联赛及相关的回合信息
+ */
 @NoArgsConstructor
 @Data
 @Document("warLeagues")
-public class WarLeagueDao {
+public class WarLeagueGroupInfoDao {
     @MongoId
     private String id;
 
+    private String state;
     private String season;
     private List<WarLeagueDaoClan> clans;
     private List<WarLeagueDaoRound> rounds;
