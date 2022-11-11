@@ -1,4 +1,3 @@
-import cn.hutool.core.date.DatePattern;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.io.FileUtil;
 import com.google.gson.Gson;
@@ -7,9 +6,7 @@ import org.example.api.ClashApi;
 import org.example.api.exception.ClashApiException;
 import org.example.api.pojo.ClanCapital;
 import org.example.api.pojo.ClanResult;
-import org.example.api.pojo.ClashErrorResponse;
 import org.example.api.pojo.Member;
-import org.example.api.tools.GsonUtil;
 import org.junit.jupiter.api.Test;
 import pojo.Mem;
 
@@ -21,7 +18,7 @@ import java.util.List;
 
 public class MyTest {
 
-    private final ClashApi clashApi = new ClashApi("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiIsImtpZCI6IjI4YTMxOGY3LTAwMDAtYTFlYi03ZmExLTJjNzQzM2M2Y2NhNSJ9.eyJpc3MiOiJzdXBlcmNlbGwiLCJhdWQiOiJzdXBlcmNlbGw6Z2FtZWFwaSIsImp0aSI6IjY0MTFkMmY0LTQ3MDAtNGY5Mi05ODIxLTYzYTc5MjBjYmM5NCIsImlhdCI6MTY2Nzk3NjczMCwic3ViIjoiZGV2ZWxvcGVyL2U5YWUxNzQwLThiNjgtYzAzZS04ZjIzLTkzODAwNWU0YzA5OSIsInNjb3BlcyI6WyJjbGFzaCJdLCJsaW1pdHMiOlt7InRpZXIiOiJkZXZlbG9wZXIvc2lsdmVyIiwidHlwZSI6InRocm90dGxpbmcifSx7ImNpZHJzIjpbIjE3MS4yMTcuMTMxLjExMiIsIjE3MS4yMTcuMTMxLjEyMyJdLCJ0eXBlIjoiY2xpZW50In1dfQ.RJGIUQ6Qk9lGILHg0ple9P9oOL4m-9aDbLYSOl1D3R0iTPE8fIuV_Uob9kH2Mn4f6UpCNDNHbEIaFm3Af1xO_g");
+    private final ClashApi clashApi = new ClashApi("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiIsImtpZCI6IjI4YTMxOGY3LTAwMDAtYTFlYi03ZmExLTJjNzQzM2M2Y2NhNSJ9.eyJpc3MiOiJzdXBlcmNlbGwiLCJhdWQiOiJzdXBlcmNlbGw6Z2FtZWFwaSIsImp0aSI6ImFhNzY4YjdiLTlhOTgtNDYwNC1hZTExLTUyYTJkZTRlN2NiNiIsImlhdCI6MTY2ODA1OTAwOCwic3ViIjoiZGV2ZWxvcGVyL2U5YWUxNzQwLThiNjgtYzAzZS04ZjIzLTkzODAwNWU0YzA5OSIsInNjb3BlcyI6WyJjbGFzaCJdLCJsaW1pdHMiOlt7InRpZXIiOiJkZXZlbG9wZXIvc2lsdmVyIiwidHlwZSI6InRocm90dGxpbmcifSx7ImNpZHJzIjpbIjE3MS4yMTcuMTMxLjEyMyJdLCJ0eXBlIjoiY2xpZW50In1dfQ.egsRL_gH9XawfESyvjGwJKzvxLVmrINyyeWJD2tDR100LdAyQ2mldTql9Zwc1GpLKcB47f8pw8vqCzwrjHaMRg");
     @Test
     void test() {
         try {
