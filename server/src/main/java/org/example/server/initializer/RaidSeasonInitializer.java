@@ -1,7 +1,6 @@
 package org.example.server.initializer;
 
 import cn.hutool.core.date.DateUtil;
-import cn.hutool.core.util.IdUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.api.ClashApi;
@@ -10,6 +9,7 @@ import org.example.api.pojo.ClanCapital;
 import org.example.api.pojo.ClanResult;
 import org.example.server.dao.RaidSeasonRepository;
 import org.example.server.dao.entity.RaidSeasonDao;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Component;
 
@@ -35,7 +35,10 @@ public class RaidSeasonInitializer implements InitializingBean {
                 //记录入库...
                 raidSeasonRepository.save(raidSeasonDao);
             } else {
-                log.warn("The Raid log entry for {} is already existed!", raidSeasonDao.getRaidStartTime());
+                log.info("Update raid season [{}]'s information.", clanCapital.getStartTime());
+                RaidSeasonDao seasonDao = raidSeasonRepository.findByRaidStartTime(clanCapital.getStartTime());
+                raidSeasonRepository.save(updateInformation(seasonDao, clanCapital));
+//                log.warn("The Raid log entry for {} is already existed!", raidSeasonDao.getRaidStartTime());
             }
         } catch (ClashApiException e) {
             System.err.println("API调用出错：" + e.getMessage() + " 详情：" + e.getDetailMessage());
@@ -43,27 +46,11 @@ public class RaidSeasonInitializer implements InitializingBean {
     }
 
     private RaidSeasonDao toRaidSeason(ClanCapital clanCapital) {
-        //获取未进攻的成员信息👇
-        List<RaidSeasonDao.UnAttackMember> allMembers = new ArrayList<>(clashApi.getClanMembers("#280Y0YGPJ")
-                .getItems()
-                .stream()
-                .map(item -> new RaidSeasonDao.UnAttackMember()
-                        .setName(item.getName())
-                        .setTag(item.getTag()))
-                .toList());
-
-        List<RaidSeasonDao.UnAttackMember> attackMembers = clanCapital.getMembers()
-                .stream()
-                .map(item -> new RaidSeasonDao.UnAttackMember()
-                        .setName(item.getName())
-                        .setTag(item.getTag()))
-                .toList();
-
-        allMembers.removeAll(attackMembers);
+        List<RaidSeasonDao.UnAttackMember> allMembers = calcNoAttackMembers(clanCapital);
         // 设值，准备入库
         return new RaidSeasonDao()
-                .setId(IdUtil.simpleUUID())
                 .setCreateTime(DateUtil.date())
+                .setState(clanCapital.getState())
                 .setRaidsCompleted(clanCapital.getRaidsCompleted())
                 .setOffensiveReward(clanCapital.getOffensiveReward())
                 .setDefensiveReward(clanCapital.getDefensiveReward())
@@ -84,4 +71,53 @@ public class RaidSeasonInitializer implements InitializingBean {
                 )
                 .setNoAttackMembers(allMembers);
     }
+
+    private RaidSeasonDao updateInformation(RaidSeasonDao oldData, ClanCapital clanCapital) {
+        List<RaidSeasonDao.UnAttackMember> unAttackMembers = calcNoAttackMembers(clanCapital);
+        return oldData
+                .setState(clanCapital.getState())
+                .setRaidsCompleted(clanCapital.getRaidsCompleted())
+                .setOffensiveReward(clanCapital.getOffensiveReward())
+                .setDefensiveReward(clanCapital.getDefensiveReward())
+                .setCapitalTotalLoot(clanCapital.getCapitalTotalLoot())
+                .setTotalAttacks(clanCapital.getTotalAttacks())
+                .setRaidStartTime(clanCapital.getStartTime())
+                .setRaidEndTime(clanCapital.getEndTime())
+                .setMembers(clanCapital.getMembers()
+                        .stream()
+                        .map(item -> new RaidSeasonDao.MembersBean()
+                                .setTag(item.getTag())
+                                .setName(item.getName())
+                                .setAttacks(item.getAttacks())
+                                .setAttackLimit(item.getAttackLimit())
+                                .setBonusAttackLimit(item.getBonusAttackLimit())
+                                .setCapitalResourcesLooted(item.getCapitalResourcesLooted()))
+                        .toList()
+                )
+                .setNoAttackMembers(unAttackMembers);
+    }
+
+    @NotNull
+    private List<RaidSeasonDao.UnAttackMember> calcNoAttackMembers(ClanCapital clanCapital) {
+        //获取未进攻的成员信息👇
+        List<RaidSeasonDao.UnAttackMember> allMembers = new ArrayList<>(clashApi.getClanMembers("#280Y0YGPJ")
+                .getItems()
+                .stream()
+                .map(item -> new RaidSeasonDao.UnAttackMember()
+                        .setName(item.getName())
+                        .setTag(item.getTag()))
+                .toList());
+
+        List<RaidSeasonDao.UnAttackMember> attackMembers = clanCapital.getMembers()
+                .stream()
+                .map(item -> new RaidSeasonDao.UnAttackMember()
+                        .setName(item.getName())
+                        .setTag(item.getTag()))
+                .toList();
+
+        allMembers.removeAll(attackMembers);
+        return allMembers;
+    }
+
+
 }

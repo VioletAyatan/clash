@@ -8,4 +8,4 @@ spring:
       database: clash
 
 server:
-  port: 8080
+  port: 9091

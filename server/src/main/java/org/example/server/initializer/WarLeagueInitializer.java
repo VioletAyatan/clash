@@ -17,6 +17,5 @@ public class WarLeagueInitializer implements InitializingBean {
 
     @Override
     public void afterPropertiesSet() {
-        clashApi.getClanWarLeagueInformation("");
     }
 }

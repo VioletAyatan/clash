@@ -3,6 +3,7 @@ package org.example.server.dao.entity;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.MongoId;
 
 import java.util.Collections;
 import java.util.Date;
@@ -14,8 +15,12 @@ import java.util.List;
 @Data
 @Document("raidSeason")
 public class RaidSeasonDao {
-    @Id
+    @MongoId
     private String id;
+    /**
+     * 状态
+     */
+    private String state;
     /**
      * 此记录创建时间
      */
