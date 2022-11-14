@@ -34,11 +34,10 @@ public class RaidSeasonInitializer implements InitializingBean {
             if (!raidSeasonRepository.existsByRaidStartTime(raidSeasonDao.getRaidStartTime())) {
                 //记录入库...
                 raidSeasonRepository.save(raidSeasonDao);
-            } else {
+            } else if (clanCapital.getState().equalsIgnoreCase("ongoing")) {
                 log.info("Update raid season [{}]'s information.", clanCapital.getStartTime());
                 RaidSeasonDao seasonDao = raidSeasonRepository.findByRaidStartTime(clanCapital.getStartTime());
                 raidSeasonRepository.save(updateInformation(seasonDao, clanCapital));
-//                log.warn("The Raid log entry for {} is already existed!", raidSeasonDao.getRaidStartTime());
             }
         } catch (ClashApiException e) {
             System.err.println("API调用出错：" + e.getMessage() + " 详情：" + e.getDetailMessage());
