@@ -9,6 +9,8 @@ public class ClashApiConfig {
 
     @Bean
     public ClashApi clashApi() {
-        return new ClashApi("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiIsImtpZCI6IjI4YTMxOGY3LTAwMDAtYTFlYi03ZmExLTJjNzQzM2M2Y2NhNSJ9.eyJpc3MiOiJzdXBlcmNlbGwiLCJhdWQiOiJzdXBlcmNlbGw6Z2FtZWFwaSIsImp0aSI6ImNkMGM5M2ZhLWY3NmYtNDgzMC05ZTMyLTNjOGQxNGMxMmU1YyIsImlhdCI6MTY2ODE1MjE0OSwic3ViIjoiZGV2ZWxvcGVyL2U5YWUxNzQwLThiNjgtYzAzZS04ZjIzLTkzODAwNWU0YzA5OSIsInNjb3BlcyI6WyJjbGFzaCJdLCJsaW1pdHMiOlt7InRpZXIiOiJkZXZlbG9wZXIvc2lsdmVyIiwidHlwZSI6InRocm90dGxpbmcifSx7ImNpZHJzIjpbIjE4Mi4xMzYuMTM5LjE3MCJdLCJ0eXBlIjoiY2xpZW50In1dfQ.bYqad-Or3pxjHwzFx9C7P1kaPMQU8WS_2EvzA1vq5gOGBCie-oQs5NQy-vP2YYsgNbcVo1A74tB0QmvR6cKx9g");
+        String clashToken = System.getenv("CLASH_TOKEN"); //读取环境变量里的token
+        System.out.println("Token = " + clashToken);
+        return new ClashApi(clashToken);
     }
 }
