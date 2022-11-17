@@ -8,4 +8,5 @@ updates:
   - package-ecosystem: "maven" # See documentation for possible values
     directory: "/" # Location of package manifests
     schedule:
-      interval: "weekly"
+      interval: "monthly" # 配置依赖检查频率（每月第一天触发）
+    open-pull-requests-limit: 10 # 配置dpBot最大打开的pr数量
