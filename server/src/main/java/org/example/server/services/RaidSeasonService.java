@@ -14,6 +14,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -32,7 +35,7 @@ public class RaidSeasonService {
         if (!raidSeasonRepository.existsByRaidStartTime(raidSeasonDao.getRaidStartTime())) {
             //记录入库...
             raidSeasonRepository.save(raidSeasonDao);
-        } else if (clanCapital.getState().equalsIgnoreCase("ongoing")) {
+        } else  {
             log.info("Update raid season [{}]'s information.", clanCapital.getStartTime());
             RaidSeasonDao seasonDao = raidSeasonRepository.findByRaidStartTime(clanCapital.getStartTime());
             raidSeasonRepository.save(updateInformation(clanTag, seasonDao, clanCapital));

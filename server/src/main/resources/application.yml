@@ -9,3 +9,6 @@ spring:
 
 server:
   port: 9091
+
+clash:
+  clan-tag: "#280Y0YGPJ"

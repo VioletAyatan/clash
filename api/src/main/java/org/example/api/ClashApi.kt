@@ -2,10 +2,8 @@ package org.example.api
 
 import cn.hutool.core.util.URLUtil
 import cn.hutool.http.HttpRequest
-import com.google.gson.reflect.TypeToken
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
-import com.squareup.moshi.adapter
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import org.example.api.exception.ClashApiException
 import org.example.api.pojo.*
@@ -75,7 +73,7 @@ class ClashApi(
      * 通过部落标签获取单个部落的信息.
      * @throws ClashApiException 如果调用api发生了错误，则抛出此异常.
      */
-    fun getClansInformation(clanTag: String): Clan? {
+    fun getClanInformation(clanTag: String): Clan? {
         return when (val response = this.get("$CLASH_API/clans/${encodeParam(clanTag)}")) {
             is String -> GsonUtil.fromJson(response, Clan::class.java)
             else -> null
@@ -104,7 +102,12 @@ class ClashApi(
                 )
             }"
         )
-        val jsonAdapter = moshi.adapter<ClanResult<ClanCapital>>(Types.newParameterizedType(ClanResult::class.java, ClanCapital::class.java))
+        val jsonAdapter = moshi.adapter<ClanResult<ClanCapital>>(
+            Types.newParameterizedType(
+                ClanResult::class.java,
+                ClanCapital::class.java
+            )
+        )
         return jsonAdapter.fromJson(response)!!
     }
 
@@ -127,7 +130,8 @@ class ClashApi(
                 )
             }"
         )
-        val jsonAdapter = moshi.adapter<ClanResult<Member>>(Types.newParameterizedType(ClanResult::class.java, Member::class.java))
+        val jsonAdapter =
+            moshi.adapter<ClanResult<Member>>(Types.newParameterizedType(ClanResult::class.java, Member::class.java))
         return jsonAdapter.fromJson(response)!!
     }
 
@@ -148,6 +152,18 @@ class ClashApi(
     fun getClanWarLeagueInformation(warTag: String): ClanWarLeagueInfo {
         val response = this.get("$CLASH_API/clanwarleagues/wars/${encodeParam(warTag)}")
         val jsonAdapter = moshi.adapter(ClanWarLeagueInfo::class.java)
+        return jsonAdapter.fromJson(response)!!
+    }
+
+    /**
+     * 通过玩家标签获取玩家的信息。
+     * 玩家标签可以在游戏中找到，也可以在氏族成员名单中找到。
+     * 请注意，玩家标签以哈希字符'#'开头，需要正确地进行URL编码才能在URL中发挥作用。
+     * 例如，玩家标签'#2ABC'在URL中会变成'%232ABC'。
+     */
+    fun getPlayerInformation(playerTag: String): PlayerInfo {
+        val response = this.get("$CLASH_API/players/${encodeParam(playerTag)}")
+        val jsonAdapter = moshi.adapter(PlayerInfo::class.java)
         return jsonAdapter.fromJson(response)!!
     }
 }

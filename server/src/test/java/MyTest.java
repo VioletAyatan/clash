@@ -6,6 +6,7 @@ import org.example.api.ClashApi;
 import org.example.api.exception.ClashApiException;
 import org.example.api.pojo.ClanCapital;
 import org.example.api.pojo.ClanResult;
+import org.example.api.pojo.ClanWarLeagueInfo;
 import org.example.api.pojo.Member;
 import org.junit.jupiter.api.Test;
 import pojo.Mem;
@@ -18,7 +19,8 @@ import java.util.List;
 
 public class MyTest {
 
-    private final ClashApi clashApi = new ClashApi("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiIsImtpZCI6IjI4YTMxOGY3LTAwMDAtYTFlYi03ZmExLTJjNzQzM2M2Y2NhNSJ9.eyJpc3MiOiJzdXBlcmNlbGwiLCJhdWQiOiJzdXBlcmNlbGw6Z2FtZWFwaSIsImp0aSI6ImFhNzY4YjdiLTlhOTgtNDYwNC1hZTExLTUyYTJkZTRlN2NiNiIsImlhdCI6MTY2ODA1OTAwOCwic3ViIjoiZGV2ZWxvcGVyL2U5YWUxNzQwLThiNjgtYzAzZS04ZjIzLTkzODAwNWU0YzA5OSIsInNjb3BlcyI6WyJjbGFzaCJdLCJsaW1pdHMiOlt7InRpZXIiOiJkZXZlbG9wZXIvc2lsdmVyIiwidHlwZSI6InRocm90dGxpbmcifSx7ImNpZHJzIjpbIjE3MS4yMTcuMTMxLjEyMyJdLCJ0eXBlIjoiY2xpZW50In1dfQ.egsRL_gH9XawfESyvjGwJKzvxLVmrINyyeWJD2tDR100LdAyQ2mldTql9Zwc1GpLKcB47f8pw8vqCzwrjHaMRg");
+    private final ClashApi clashApi = new ClashApi(System.getenv("CLASH_TOKEN"));
+
     @Test
     void test() {
         try {
@@ -49,6 +51,7 @@ public class MyTest {
             System.err.println("API调用出错，原因：" + e.getMessage() + " 细节：" + e.getDetailMessage());
         }
     }
+
     @Test
     void test2() {
         try {
@@ -58,6 +61,7 @@ public class MyTest {
             System.err.println("API调用出错，原因：" + e.getMessage() + " 细节：" + e.getDetailMessage());
         }
     }
+
     @Test
     void export() {
         try {
@@ -75,5 +79,11 @@ public class MyTest {
         } catch (ClashApiException e) {
             System.err.println("API调用出错，原因：" + e.getMessage() + " 细节：" + e.getDetailMessage());
         }
+    }
+
+    @Test
+    void warLeague() {
+        ClanWarLeagueInfo leagueInformation = clashApi.getClanWarLeagueInformation("#280Y0YGPJ");
+        System.out.println("leagueInformation = " + leagueInformation);
     }
 }
