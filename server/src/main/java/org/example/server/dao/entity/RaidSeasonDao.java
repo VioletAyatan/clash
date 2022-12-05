@@ -1,7 +1,8 @@
 package org.example.server.dao.entity;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import org.example.api.pojo.Member;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.MongoId;
 
@@ -42,6 +43,10 @@ public class RaidSeasonDao {
      */
     private Long defensiveReward;
     /**
+     * 所有部落成员
+     */
+    private List<UnAttackMember> allMember;
+    /**
      * 参与进攻的成员
      */
     private List<MembersBean> members = Collections.emptyList();
@@ -73,8 +78,18 @@ public class RaidSeasonDao {
     }
 
     @Data
+    @NoArgsConstructor
     public static class UnAttackMember {
         private String tag;
         private String name;
+
+        public UnAttackMember(String tag, String name) {
+            this.tag = tag;
+            this.name = name;
+        }
+
+        public static UnAttackMember cover(Member member) {
+            return new UnAttackMember(member.getTag(), member.getName());
+        }
     }
 }
