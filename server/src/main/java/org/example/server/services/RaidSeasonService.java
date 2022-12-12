@@ -25,20 +25,25 @@ public class RaidSeasonService {
     private final RaidSeasonRepository raidSeasonRepository;
 
     public boolean updateRaidSeasonInformation(String clanTag) throws ClashApiException {
-        ClanResult<ClanCapital> raidSeason = clashApi.getClanCapitalRaidSeason(clanTag, 1);
-        ClanCapital clanCapital = raidSeason.getItems().get(0);
-        //检查数据库是否已经存在这条记录了.
-        if (!raidSeasonRepository.existsByRaidStartTime(clanCapital.getStartTime())) {
-            //数据结构转换.
-            RaidSeasonDao raidSeasonDao = this.toRaidSeason(clanTag, clanCapital);
-            //记录入库...
-            raidSeasonRepository.save(raidSeasonDao);
-        } else {
-            log.info("Update raid season [{}]'s information.", clanCapital.getStartTime());
-            RaidSeasonDao seasonDao = raidSeasonRepository.findByRaidStartTime(clanCapital.getStartTime());
-            raidSeasonRepository.save(updateInformation(clanTag, seasonDao, clanCapital));
+        try {
+            ClanResult<ClanCapital> raidSeason = clashApi.getClanCapitalRaidSeason(clanTag, 1);
+            ClanCapital clanCapital = raidSeason.getItems().get(0);
+            //检查数据库是否已经存在这条记录了.
+            if (!raidSeasonRepository.existsByRaidStartTime(clanCapital.getStartTime())) {
+                //数据结构转换.
+                RaidSeasonDao raidSeasonDao = this.toRaidSeason(clanTag, clanCapital);
+                //记录入库...
+                raidSeasonRepository.save(raidSeasonDao);
+            } else {
+                log.info("Update raid season [{}]'s information.", clanCapital.getStartTime());
+                RaidSeasonDao seasonDao = raidSeasonRepository.findByRaidStartTime(clanCapital.getStartTime());
+                raidSeasonRepository.save(updateInformation(clanTag, seasonDao, clanCapital));
+            }
+            return true;
+        } catch (ClashApiException e) {
+            log.error("Error, something is wrong with clash-api. {}", e.getDetailMessage());
+            return false;
         }
-        return true;
     }
 
 
