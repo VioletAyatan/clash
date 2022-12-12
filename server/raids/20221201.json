@@ -21,7 +21,7 @@
         },
         {
           "tag": "#LLPR82G9P",
-          "name": "ÇëÄã¸çÎÚ¶÷",
+          "name": "è¯·ä½ å“¥ä¹Œæ©",
           "attacks": 6,
           "attackLimit": 5,
           "bonusAttackLimit": 1,
@@ -45,7 +45,7 @@
         },
         {
           "tag": "#QL28PQ8P2",
-          "name": "Ÿo.",
+          "name": "ç„¡.",
           "attacks": 6,
           "attackLimit": 5,
           "bonusAttackLimit": 1,
@@ -61,7 +61,7 @@
         },
         {
           "tag": "#QRPQURJRU",
-          "name": "¿Õ¿Õ",
+          "name": "ç©ºç©º",
           "attacks": 6,
           "attackLimit": 5,
           "bonusAttackLimit": 1,
@@ -77,7 +77,7 @@
         },
         {
           "tag": "#QRPY0G2UY",
-          "name": "°×ÔÆÁğĞÇ",
+          "name": "ç™½äº‘ç‰æ˜Ÿ",
           "attacks": 6,
           "attackLimit": 5,
           "bonusAttackLimit": 1,
@@ -109,7 +109,7 @@
         },
         {
           "tag": "#202GYQY8",
-          "name": "ËÍÈËÍ·´óÄ§Íõ",
+          "name": "é€äººå¤´å¤§é­”ç‹",
           "attacks": 6,
           "attackLimit": 5,
           "bonusAttackLimit": 1,
@@ -117,7 +117,7 @@
         },
         {
           "tag": "#QC0GGU99L",
-          "name": "ÄÏ¼ã",
+          "name": "å—ç¬º",
           "attacks": 6,
           "attackLimit": 5,
           "bonusAttackLimit": 1,
@@ -125,7 +125,7 @@
         },
         {
           "tag": "#QU2GY8080",
-          "name": "°¡°É°¡°É",
+          "name": "å•Šå§å•Šå§",
           "attacks": 6,
           "attackLimit": 5,
           "bonusAttackLimit": 1,
@@ -133,7 +133,7 @@
         },
         {
           "tag": "#QCG2GLR2P",
-          "name": "Ğ¡Õ½Ê¿ Ïè",
+          "name": "å°æˆ˜å£« ç¿”",
           "attacks": 6,
           "attackLimit": 5,
           "bonusAttackLimit": 1,
@@ -141,7 +141,7 @@
         },
         {
           "tag": "#QRRPPPQQR",
-          "name": "¾ÛĞÇÁéµî-110",
+          "name": "èšæ˜Ÿçµæ®¿-110",
           "attacks": 6,
           "attackLimit": 5,
           "bonusAttackLimit": 1,
@@ -157,7 +157,7 @@
         },
         {
           "tag": "#QRVLQ2JLV",
-          "name": "ÀÏÍâÎÒÓÖÀ´À±",
+          "name": "è€å¤–æˆ‘åˆæ¥è¾£",
           "attacks": 5,
           "attackLimit": 5,
           "bonusAttackLimit": 0,
@@ -165,7 +165,7 @@
         },
         {
           "tag": "#QJ2RYPJP8",
-          "name": "Çï³½Ò¹Óê",
+          "name": "ç§‹è¾°å¤œé›¨",
           "attacks": 6,
           "attackLimit": 5,
           "bonusAttackLimit": 1,
@@ -173,7 +173,7 @@
         },
         {
           "tag": "#QQ22YPJVJ",
-          "name": "ÀòÑ©µÛ¹ú",
+          "name": "è‰é›ªå¸å›½",
           "attacks": 6,
           "attackLimit": 5,
           "bonusAttackLimit": 1,
@@ -181,7 +181,7 @@
         },
         {
           "tag": "#QU9V909C9",
-          "name": "China£ºpeak",
+          "name": "Chinaï¼špeak",
           "attacks": 6,
           "attackLimit": 5,
           "bonusAttackLimit": 1,
@@ -205,7 +205,7 @@
         },
         {
           "tag": "#29982JLQC",
-          "name": "¶¥¼¶ÅÚ»Ò",
+          "name": "é¡¶çº§ç‚®ç°",
           "attacks": 1,
           "attackLimit": 5,
           "bonusAttackLimit": 0,
@@ -221,7 +221,7 @@
         },
         {
           "tag": "#QRCVLPRRU",
-          "name": "ÖÜĞÇ³Û",
+          "name": "å‘¨æ˜Ÿé©°",
           "attacks": 6,
           "attackLimit": 5,
           "bonusAttackLimit": 1,
@@ -237,7 +237,7 @@
         },
         {
           "tag": "#Q2GQJJ282",
-          "name": "ÃÈĞÂ?Ğ¡°×",
+          "name": "èŒæ–°?å°ç™½",
           "attacks": 6,
           "attackLimit": 5,
           "bonusAttackLimit": 1,
@@ -253,7 +253,7 @@
         },
         {
           "tag": "#QR29J0LVY",
-          "name": "ÉñÒş",
+          "name": "ç¥éš",
           "attacks": 6,
           "attackLimit": 5,
           "bonusAttackLimit": 1,
@@ -269,7 +269,7 @@
         },
         {
           "tag": "#QCPPJC9R8",
-          "name": "¼«Æ·µ°",
+          "name": "æå“è›‹",
           "attacks": 6,
           "attackLimit": 5,
           "bonusAttackLimit": 1,
@@ -277,7 +277,7 @@
         },
         {
           "tag": "#QG809VVLY",
-          "name": "ÎÒµÄ´å×¯½Ğ×ö¡­¡­",
+          "name": "æˆ‘çš„æ‘åº„å«åšâ€¦â€¦",
           "attacks": 6,
           "attackLimit": 5,
           "bonusAttackLimit": 1,
@@ -317,7 +317,7 @@
         },
         {
           "tag": "#QR9PCJJ2P",
-          "name": "¹Â¼Å",
+          "name": "å­¤å¯‚",
           "attacks": 6,
           "attackLimit": 5,
           "bonusAttackLimit": 1,
@@ -325,7 +325,7 @@
         },
         {
           "tag": "#QPVJC2Y8P",
-          "name": "¿Õ¿Õ",
+          "name": "ç©ºç©º",
           "attacks": 2,
           "attackLimit": 5,
           "bonusAttackLimit": 1,
