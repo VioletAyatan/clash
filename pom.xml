@@ -33,7 +33,7 @@
             <dependency>
                 <groupId>cn.hutool</groupId>
                 <artifactId>hutool-bom</artifactId>
-                <version>5.8.10</version>
+                <version>5.8.11</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
