@@ -8,6 +8,10 @@ import org.example.server.services.RaidSeasonService;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Component;
 
+/**
+ * 突袭周末数据初始化器
+ * @author Ankol
+ */
 @Slf4j
 @Component
 @RequiredArgsConstructor

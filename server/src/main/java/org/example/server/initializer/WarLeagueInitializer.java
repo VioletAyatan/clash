@@ -7,6 +7,10 @@ import org.example.server.dao.WarLeagueRepository;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Component;
 
+/**
+ * 部落对战联赛数据初始化器，todo......
+ * @author Ankol
+ */
 @Slf4j
 @Component
 @RequiredArgsConstructor

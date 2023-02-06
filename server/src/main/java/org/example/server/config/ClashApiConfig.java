@@ -23,7 +23,7 @@ public class ClashApiConfig {
         } else {
             clashToken = System.getenv(ENV_TOKEN_NAME);
         }
-        log.debug("[DEBUG] Clash-API is initialized with access-token [{}]", clashToken);
+        log.debug("[DEBUG] Clash-API is initializing with access-token [{}]", clashToken);
         return new ClashApi(clashToken);
     }
 }
