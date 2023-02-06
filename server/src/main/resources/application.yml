@@ -7,5 +7,10 @@ spring:
       port: 27017
       database: clash
 
-clash:
+logging:
+  level:
+    org.example.server: debug
+
+clash-manager:
   clan-tag: "#280Y0YGPJ"
+  api-access-token: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiIsImtpZCI6IjI4YTMxOGY3LTAwMDAtYTFlYi03ZmExLTJjNzQzM2M2Y2NhNSJ9.eyJpc3MiOiJzdXBlcmNlbGwiLCJhdWQiOiJzdXBlcmNlbGw6Z2FtZWFwaSIsImp0aSI6ImM3Y2Q4MGMwLTBkMWUtNDA4MC1hOTBmLTU2NzNhMjJkNDdiMyIsImlhdCI6MTY3NTY3MjgwNiwic3ViIjoiZGV2ZWxvcGVyL2U5YWUxNzQwLThiNjgtYzAzZS04ZjIzLTkzODAwNWU0YzA5OSIsInNjb3BlcyI6WyJjbGFzaCJdLCJsaW1pdHMiOlt7InRpZXIiOiJkZXZlbG9wZXIvc2lsdmVyIiwidHlwZSI6InRocm90dGxpbmcifSx7ImNpZHJzIjpbIjE3MS4yMTcuMTI2LjE0NSIsIjE3MS4yMTYuODkuMTQ3Il0sInR5cGUiOiJjbGllbnQifV19.whPQ_0CTNFS4lgbDC3tsaj587zWT8UMLRC7J1k9rlntFcJ_QEk3v0Lw4Vq94jmePsPYTY9ZNenqVF6W4A3mJjw"
