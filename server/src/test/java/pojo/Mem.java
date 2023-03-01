@@ -2,7 +2,7 @@ package pojo;
 
 import lombok.Data;
 import org.example.api.pojo.ClanCapital;
-import org.example.api.pojo.Member;
+import org.example.api.pojo.ClanMember;
 
 @Data
 public class Mem {
@@ -18,7 +18,7 @@ public class Mem {
         return new Mem(member.getTag(), member.getName());
     }
 
-    public static Mem create(Member member) {
-        return new Mem(member.getTag(), member.getName());
+    public static Mem create(ClanMember clanMember) {
+        return new Mem(clanMember.getTag(), clanMember.getName());
     }
 }

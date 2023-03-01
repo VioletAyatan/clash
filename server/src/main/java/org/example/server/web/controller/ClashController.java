@@ -2,8 +2,7 @@ package org.example.server.web.controller;
 
 import org.example.api.ClashApi;
 import org.example.api.pojo.Clan;
-import org.example.api.pojo.ClanResult;
-import org.example.api.pojo.Member;
+import org.example.api.pojo.Player;
 import org.example.server.config.ClashProperties;
 import org.example.server.dao.RaidSeasonRepository;
 import org.example.server.dao.WarLeagueRepository;
@@ -15,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/clash")
@@ -46,11 +47,13 @@ public class ClashController {
         return ResultWrapper.success(clashApi.getClanInformation(clashProperties.getClanTag()));
     }
 
-//    /**
-//     * 获取部落成员信息
-//     */
-//    @GetMapping("/members")
-//    public ResultWrapper<ClanResult<Member>> members() {
-//        return ResultWrapper.success(clashService.getMembersInformation());
-//    }
+    /**
+     * 获取部落成员信息
+     *
+     * @return
+     */
+    @GetMapping("/members")
+    public ResultWrapper<List<Player>> members() {
+        return ResultWrapper.success(clashService.getMembersInformation());
+    }
 }

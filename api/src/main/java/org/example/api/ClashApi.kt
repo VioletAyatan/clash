@@ -1,5 +1,6 @@
 package org.example.api
 
+import org.example.api.pojo.Player
 import cn.hutool.core.util.URLUtil
 import cn.hutool.http.HttpRequest
 import com.squareup.moshi.Moshi
@@ -11,62 +12,16 @@ import org.example.api.tools.GsonUtil
 import java.nio.charset.Charset
 
 class ClashApi(
-    private val TOKEN: String
+        private val TOKEN: String
 ) {
 
-    private var errorResponse: ClashErrorResponse? = null
-
     private val moshi = Moshi
-        .Builder()
-        .addLast(KotlinJsonAdapterFactory())
-        .build()
+            .Builder()
+            .addLast(KotlinJsonAdapterFactory())
+            .build()
 
     companion object {
         const val CLASH_API = "https://api.clashofclans.com/v1"
-    }
-
-
-    private fun get(url: String): String {
-        val response = HttpRequest.get(url)
-            .bearerAuth(TOKEN)
-            .execute()
-        return when {
-            response.isOk -> response.body()
-            else -> throw ClashApiException(GsonUtil.fromJson(response.body(), ClashErrorResponse::class.java))
-        }
-    }
-
-    private fun post(url: String): String {
-        val response = HttpRequest.post(url)
-            .bearerAuth(TOKEN)
-            .execute()
-        return when {
-            response.isOk -> response.body()
-            else -> throw ClashApiException(GsonUtil.fromJson(response.body(), ClashErrorResponse::class.java))
-        }
-    }
-
-    /**
-     * 构建查询字符串
-     */
-    private fun builderParameter(
-        limit: Int? = null,
-        after: String? = null,
-        before: String? = null
-    ): String {
-        val params = mutableMapOf<String, Any>()
-        limit?.let { i: Int -> params["limit"] = i }
-        after?.let { s -> params["after"] = s }
-        before?.let { s -> params["before"] = s }
-        val buildQuery = URLUtil.buildQuery(params, Charset.defaultCharset())
-        return if (buildQuery.isNotBlank()) "?$buildQuery" else ""
-    }
-
-    /**
-     * Encoding incoming parameter
-     */
-    private fun encodeParam(param: String): String? {
-        return URLUtil.encode(param)
     }
 
     /**
@@ -88,25 +43,25 @@ class ClashApi(
      */
     @JvmOverloads
     fun getClanCapitalRaidSeason(
-        clanTag: String,
-        limit: Int? = null,
-        after: String? = null,
-        before: String? = null
+            clanTag: String,
+            limit: Int? = null,
+            after: String? = null,
+            before: String? = null
     ): ClanResult<ClanCapital> {
         val response = this.get(
-            "$CLASH_API/clans/${encodeParam(clanTag)}/capitalraidseasons${
-                builderParameter(
-                    limit,
-                    after,
-                    before
-                )
-            }"
+                "$CLASH_API/clans/${encodeParam(clanTag)}/capitalraidseasons${
+                    builderParameter(
+                            limit,
+                            after,
+                            before
+                    )
+                }"
         )
         val jsonAdapter = moshi.adapter<ClanResult<ClanCapital>>(
-            Types.newParameterizedType(
-                ClanResult::class.java,
-                ClanCapital::class.java
-            )
+                Types.newParameterizedType(
+                        ClanResult::class.java,
+                        ClanCapital::class.java
+                )
         )
         return jsonAdapter.fromJson(response)!!
     }
@@ -117,21 +72,21 @@ class ClashApi(
      */
     @JvmOverloads
     fun getClanMembers(
-        clanTag: String, limit: Int? = null,
-        after: String? = null,
-        before: String? = null
-    ): ClanResult<Member> {
+            clanTag: String, limit: Int? = null,
+            after: String? = null,
+            before: String? = null
+    ): ClanResult<ClanMember> {
         val response = this.get(
-            "$CLASH_API/clans/${encodeParam(clanTag)}/members${
-                builderParameter(
-                    limit,
-                    after,
-                    before
-                )
-            }"
+                "$CLASH_API/clans/${encodeParam(clanTag)}/members${
+                    builderParameter(
+                            limit,
+                            after,
+                            before
+                    )
+                }"
         )
         val jsonAdapter =
-            moshi.adapter<ClanResult<Member>>(Types.newParameterizedType(ClanResult::class.java, Member::class.java))
+                moshi.adapter<ClanResult<ClanMember>>(Types.newParameterizedType(ClanResult::class.java, ClanMember::class.java))
         return jsonAdapter.fromJson(response)!!
     }
 
@@ -161,9 +116,53 @@ class ClashApi(
      * 请注意，玩家标签以哈希字符'#'开头，需要正确地进行URL编码才能在URL中发挥作用。
      * 例如，玩家标签'#2ABC'在URL中会变成'%232ABC'。
      */
-    fun getPlayerInformation(playerTag: String): PlayerInfo {
+    fun getPlayerInformation(playerTag: String): Player? {
         val response = this.get("$CLASH_API/players/${encodeParam(playerTag)}")
-        val jsonAdapter = moshi.adapter(PlayerInfo::class.java)
-        return jsonAdapter.fromJson(response)!!
+        val jsonAdapter = moshi.adapter(Player::class.java)
+        return jsonAdapter.fromJson(response)
+    }
+
+
+    private fun get(url: String): String {
+        val response = HttpRequest.get(url)
+                .bearerAuth(TOKEN)
+                .execute()
+        return when {
+            response.isOk -> response.body()
+            else -> throw ClashApiException(GsonUtil.fromJson(response.body(), ClashErrorResponse::class.java))
+        }
+    }
+
+    private fun post(url: String): String {
+        val response = HttpRequest.post(url)
+                .bearerAuth(TOKEN)
+                .execute()
+        return when {
+            response.isOk -> response.body()
+            else -> throw ClashApiException(GsonUtil.fromJson(response.body(), ClashErrorResponse::class.java))
+        }
+    }
+
+    /**
+     * 构建查询字符串
+     */
+    private fun builderParameter(
+            limit: Int? = null,
+            after: String? = null,
+            before: String? = null
+    ): String {
+        val params = mutableMapOf<String, Any>()
+        limit?.let { i: Int -> params["limit"] = i }
+        after?.let { s -> params["after"] = s }
+        before?.let { s -> params["before"] = s }
+        val buildQuery = URLUtil.buildQuery(params, Charset.defaultCharset())
+        return if (buildQuery.isNotBlank()) "?$buildQuery" else ""
+    }
+
+    /**
+     * Encoding incoming parameter
+     */
+    private fun encodeParam(param: String): String? {
+        return URLUtil.encode(param)
     }
 }

@@ -7,7 +7,7 @@ import org.example.api.exception.ClashApiException;
 import org.example.api.pojo.ClanCapital;
 import org.example.api.pojo.ClanResult;
 import org.example.api.pojo.ClanWarLeagueInfo;
-import org.example.api.pojo.Member;
+import org.example.api.pojo.ClanMember;
 import org.junit.jupiter.api.Test;
 import pojo.Mem;
 
@@ -19,12 +19,11 @@ import java.util.List;
 
 public class MyTest {
 
-    private final ClashApi clashApi = new ClashApi("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiIsImtpZCI6IjI4YTMxOGY3LTAwMDAtYTFlYi03ZmExLTJjNzQzM2M2Y2NhNSJ9.eyJpc3MiOiJzdXBlcmNlbGwiLCJhdWQiOiJzdXBlcmNlbGw6Z2FtZWFwaSIsImp0aSI6ImM3Y2Q4MGMwLTBkMWUtNDA4MC1hOTBmLTU2NzNhMjJkNDdiMyIsImlhdCI6MTY3NTY3MjgwNiwic3ViIjoiZGV2ZWxvcGVyL2U5YWUxNzQwLThiNjgtYzAzZS04ZjIzLTkzODAwNWU0YzA5OSIsInNjb3BlcyI6WyJjbGFzaCJdLCJsaW1pdHMiOlt7InRpZXIiOiJkZXZlbG9wZXIvc2lsdmVyIiwidHlwZSI6InRocm90dGxpbmcifSx7ImNpZHJzIjpbIjE3MS4yMTcuMTI2LjE0NSIsIjE3MS4yMTYuODkuMTQ3Il0sInR5cGUiOiJjbGllbnQifV19.whPQ_0CTNFS4lgbDC3tsaj587zWT8UMLRC7J1k9rlntFcJ_QEk3v0Lw4Vq94jmePsPYTY9ZNenqVF6W4A3mJjw");
-
+    private final ClashApi clashApi = new ClashApi("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiIsImtpZCI6IjI4YTMxOGY3LTAwMDAtYTFlYi03ZmExLTJjNzQzM2M2Y2NhNSJ9.eyJpc3MiOiJzdXBlcmNlbGwiLCJhdWQiOiJzdXBlcmNlbGw6Z2FtZWFwaSIsImp0aSI6ImFiYTM1NDdlLTg0YzctNDBiNy04YWM1LTVjODI0Njk0ZmRmMyIsImlhdCI6MTY3NzY1NjgxMSwic3ViIjoiZGV2ZWxvcGVyL2U5YWUxNzQwLThiNjgtYzAzZS04ZjIzLTkzODAwNWU0YzA5OSIsInNjb3BlcyI6WyJjbGFzaCJdLCJsaW1pdHMiOlt7InRpZXIiOiJkZXZlbG9wZXIvc2lsdmVyIiwidHlwZSI6InRocm90dGxpbmcifSx7ImNpZHJzIjpbIjE3MS4yMTcuMTI2LjE0NSIsIjE3MS4yMTYuODkuMTQ3IiwiNjEuMTM5LjY4Ljc4Il0sInR5cGUiOiJjbGllbnQifV19.PHE6hMUSYBbFWiMh4EypP_5ashwKDq9SwqwMG0rEAnpbgaBuEZZ2Ou2DzgDC7iF1-0EtMkcGFlFKO2q32gy6Cg");
     @Test
     void test() {
         try {
-            ClanResult<Member> members = clashApi.getClanMembers("#280Y0YGPJ");
+            ClanResult<ClanMember> members = clashApi.getClanMembers("#280Y0YGPJ");
             List<Mem> member = new ArrayList<>(members.getItems()
                     .stream()
                     .map(Mem::create)
@@ -55,7 +54,7 @@ public class MyTest {
     @Test
     void test2() {
         try {
-            ClanResult<Member> clanMembers = clashApi.getClanMembers("#280Y0YGPJ");
+            ClanResult<ClanMember> clanMembers = clashApi.getClanMembers("#280Y0YGPJ");
             System.out.println("clanMembers = " + clanMembers);
         } catch (ClashApiException e) {
             System.err.println("API调用出错，原因：" + e.getMessage() + " 细节：" + e.getDetailMessage());

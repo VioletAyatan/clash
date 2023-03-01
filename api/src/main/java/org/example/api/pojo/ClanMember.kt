@@ -3,7 +3,7 @@ package org.example.api.pojo
 /**
  * 成员
  */
-data class Member(
+data class ClanMember(
     /**
      * 标签
      */

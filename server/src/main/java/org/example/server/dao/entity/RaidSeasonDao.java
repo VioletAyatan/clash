@@ -2,7 +2,7 @@ package org.example.server.dao.entity;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.example.api.pojo.Member;
+import org.example.api.pojo.ClanMember;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.MongoId;
 
@@ -88,8 +88,8 @@ public class RaidSeasonDao {
             this.name = name;
         }
 
-        public static UnAttackMember cover(Member member) {
-            return new UnAttackMember(member.getTag(), member.getName());
+        public static UnAttackMember cover(ClanMember clanMember) {
+            return new UnAttackMember(clanMember.getTag(), clanMember.getName());
         }
     }
 }
