@@ -11,12 +11,12 @@ class ClashProperties {
     /**
      * 设置需要管理的氏族.
      */
-    private val clanTag: String? = null
+    val clanTag: String = ""
 
     /**
      * 访问官方Api接口所需的Token，如何获取请参考：[developer.clashofclans.com](https://developer.clashofclans.com/#/getting-started)
      */
-    private val apiAccessToken: String? = null
+    val apiAccessToken: String = ""
 
     companion object {
         const val PREFIX = "clash-manager"

@@ -49,8 +49,6 @@ public class ClashController {
 
     /**
      * 获取部落成员信息
-     *
-     * @return
      */
     @GetMapping("/members")
     public ResultWrapper<List<Player>> members() {
