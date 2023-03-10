@@ -69,8 +69,33 @@
                         </execution>
                     </executions>
                     <configuration>
-                        <jvmTarget>1.8</jvmTarget>
+                        <compilerPlugins>
+                            <plugin>lombok</plugin>
+                            <plugin>spring</plugin>
+                        </compilerPlugins>
+                        <pluginOptions>
+                            <option>lombok:config=${project.basedir}/lombok.config</option>
+                        </pluginOptions>
+                        <jvmTarget>${java.version}</jvmTarget>
                     </configuration>
+                    <dependencies>
+                        <dependency>
+                            <groupId>org.jetbrains.kotlin</groupId>
+                            <artifactId>kotlin-maven-lombok</artifactId>
+                            <version>${kotlin.version}</version>
+                        </dependency>
+                        <dependency>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                            <version>${lombok.version}</version>
+                            <scope>compile</scope>
+                        </dependency>
+                        <dependency>
+                            <groupId>org.jetbrains.kotlin</groupId>
+                            <artifactId>kotlin-maven-allopen</artifactId>
+                            <version>${kotlin.version}</version>
+                        </dependency>
+                    </dependencies>
                 </plugin>
             </plugins>
         </pluginManagement>
