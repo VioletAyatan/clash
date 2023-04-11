@@ -1,22 +1,24 @@
 package com.ankol.api;
 
+import cn.hutool.core.net.url.UrlBuilder;
 import cn.hutool.http.HttpResponse;
 import cn.hutool.http.HttpUtil;
 
+import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
 public abstract class AbstractApi {
     protected String authorization;
-    protected final String BASE_URL;
+    protected static final String BASE_URL = "https://api.clashofclans.com/v1";
 
     /**
      * 初始化一个API类实例
+     *
      * @param authorization
      * @param baseUrl
      */
-    protected AbstractApi(String authorization, String baseUrl) {
+    protected AbstractApi(String authorization) {
         this.authorization = authorization;
-        BASE_URL = baseUrl;
     }
 
     /**
@@ -27,8 +29,8 @@ public abstract class AbstractApi {
      * @return {@link HttpResponse}
      */
     protected HttpResponse doGet(String url, Map<String, Object> params) {
-        return HttpUtil.createGet(url)
-                .auth(authorization)
+        return HttpUtil.createGet(UrlBuilder.of(url, StandardCharsets.UTF_8).build())
+                .bearerAuth(authorization)
                 .form(params)
                 .executeAsync();
     }
@@ -52,7 +54,7 @@ public abstract class AbstractApi {
      */
     protected HttpResponse doPost(String url, String json) {
         return HttpUtil.createGet(url)
-                .auth(authorization)
+                .bearerAuth(authorization)
                 .body(json)
                 .executeAsync();
     }
@@ -76,7 +78,7 @@ public abstract class AbstractApi {
      */
     protected HttpResponse doPut(String url, String json) {
         return HttpUtil.createGet(url)
-                .auth(authorization)
+                .bearerAuth(authorization)
                 .body(json)
                 .executeAsync();
     }
@@ -89,7 +91,7 @@ public abstract class AbstractApi {
      */
     protected HttpResponse doDelete(String url) {
         return HttpUtil.createGet(url)
-                .auth(authorization)
+                .bearerAuth(authorization)
                 .executeAsync();
     }
 }

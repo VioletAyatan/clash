@@ -2,11 +2,8 @@ package org.example.server.schedule;
 
 import cn.hutool.core.date.DatePattern;
 import cn.hutool.core.date.DateUtil;
+import com.ankol.api.ClashApi;
 import lombok.extern.slf4j.Slf4j;
-import org.example.api.ClashApi;
-import org.example.api.exception.ClashApiException;
-import org.example.api.pojo.ClanCapital;
-import org.example.api.pojo.ClanResult;
 import org.example.server.dao.RaidSeasonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
