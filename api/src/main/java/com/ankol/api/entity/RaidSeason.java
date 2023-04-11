@@ -6,7 +6,6 @@ import java.util.List;
 
 @Data
 public class RaidSeason {
-
     private String state;
     private String startTime;
     private String endTime;

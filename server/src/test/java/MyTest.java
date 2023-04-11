@@ -1,13 +1,12 @@
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.io.FileUtil;
+import com.ankol.api.ClashApi;
+import com.ankol.api.entity.ItemResult;
+import com.ankol.api.entity.ClanMember;
+import com.ankol.api.entity.RaidSeason;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import org.example.api.ClashApi;
-import org.example.api.exception.ClashApiException;
-import org.example.api.pojo.ClanCapital;
-import org.example.api.pojo.ClanResult;
-import org.example.api.pojo.ClanWarLeagueInfo;
-import org.example.api.pojo.ClanMember;
+
 import org.junit.jupiter.api.Test;
 import pojo.Mem;
 
@@ -22,8 +21,9 @@ public class MyTest {
     private final ClashApi clashApi = new ClashApi("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiIsImtpZCI6IjI4YTMxOGY3LTAwMDAtYTFlYi03ZmExLTJjNzQzM2M2Y2NhNSJ9.eyJpc3MiOiJzdXBlcmNlbGwiLCJhdWQiOiJzdXBlcmNlbGw6Z2FtZWFwaSIsImp0aSI6ImFiYTM1NDdlLTg0YzctNDBiNy04YWM1LTVjODI0Njk0ZmRmMyIsImlhdCI6MTY3NzY1NjgxMSwic3ViIjoiZGV2ZWxvcGVyL2U5YWUxNzQwLThiNjgtYzAzZS04ZjIzLTkzODAwNWU0YzA5OSIsInNjb3BlcyI6WyJjbGFzaCJdLCJsaW1pdHMiOlt7InRpZXIiOiJkZXZlbG9wZXIvc2lsdmVyIiwidHlwZSI6InRocm90dGxpbmcifSx7ImNpZHJzIjpbIjE3MS4yMTcuMTI2LjE0NSIsIjE3MS4yMTYuODkuMTQ3IiwiNjEuMTM5LjY4Ljc4Il0sInR5cGUiOiJjbGllbnQifV19.PHE6hMUSYBbFWiMh4EypP_5ashwKDq9SwqwMG0rEAnpbgaBuEZZ2Ou2DzgDC7iF1-0EtMkcGFlFKO2q32gy6Cg");
     @Test
     void test() {
+
         try {
-            ClanResult<ClanMember> members = clashApi.getClanMembers("#280Y0YGPJ");
+            ItemResult<ClanMember> members = clashApi.clan.listMembers("#280Y0YGPJ");
             List<Mem> member = new ArrayList<>(members.getItems()
                     .stream()
                     .map(Mem::create)
@@ -31,7 +31,7 @@ public class MyTest {
 
             System.out.println("部落总成员：" + member.size());
 
-            ClanResult<ClanCapital> raidSeason = clashApi.getClanCapitalRaidSeason("#280Y0YGPJ", 1);
+            ItemResult<RaidSeason> raidSeason = clashApi.clan.capitalRaidSeasons("#280Y0YGPJ", 1);
 
             List<Mem> raidMembers = raidSeason.
                     getItems()
@@ -46,8 +46,8 @@ public class MyTest {
             member.removeAll(raidMembers);
 
             System.out.println("未参与突袭的成员：" + member);
-        } catch (ClashApiException e) {
-            System.err.println("API调用出错，原因：" + e.getMessage() + " 细节：" + e.getDetailMessage());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 

@@ -1,7 +1,7 @@
 package org.example.server.services;
 
-import org.example.api.ClashApi;
-import org.example.api.pojo.Player;
+
+import com.ankol.api.ClashApi;
 import org.example.server.config.ClashProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -19,12 +19,6 @@ public class ClashService {
     @Autowired
     private MongoTemplate mongoTemplate;
 
-    public List<Player> getMembersInformation() {
-        Query query = new Query();
-        query.fields().exclude("achievements");
-        return mongoTemplate.find(query, Player.class);
-    }
-
     /**
      * 更新氏族成员详细信息，自动进行数据库信息更新.
      *
@@ -33,7 +27,7 @@ public class ClashService {
      */
     public boolean updateClanMembersInformation(String clanTag) {
         try {
-            List<Player> playerList = clashApi.getClanMembers(clanTag).getItems()
+            List<Object> objects = clashApi.clan.listMembers(clanTag).getItems()
                     .parallelStream()
                     .map(item -> clashApi.getPlayerInformation(item.getTag()))
                     .toList();

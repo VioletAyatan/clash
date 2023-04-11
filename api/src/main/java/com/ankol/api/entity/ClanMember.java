@@ -7,7 +7,7 @@ import java.util.List;
 
 @NoArgsConstructor
 @Data
-public class Member {
+public class ClanMember {
 
     private String tag;
     private String name;

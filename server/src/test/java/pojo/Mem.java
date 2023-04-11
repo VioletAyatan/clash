@@ -1,8 +1,9 @@
 package pojo;
 
+import com.ankol.api.entity.ClanMember;
+import com.ankol.api.entity.RaidSeason;
 import lombok.Data;
-import org.example.api.pojo.ClanCapital;
-import org.example.api.pojo.ClanMember;
+
 
 @Data
 public class Mem {
@@ -14,7 +15,7 @@ public class Mem {
         this.name = name;
     }
 
-    public static Mem create(ClanCapital.ClanCapitalMember member) {
+    public static Mem create(RaidSeason.MembersDTO member) {
         return new Mem(member.getTag(), member.getName());
     }
 

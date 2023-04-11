@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 @Component
 @ConfigurationProperties(prefix = ClashProperties.PREFIX)
 public class ClashProperties {
-    private static final String PREFIX = "clash-manager";
+    public static final String PREFIX = "clash-manager";
     /**
      * 访问官方Api接口所需的Token，如何获取请参考：[developer.clashofclans.com](https://developer.clashofclans.com/#/getting-started)
      */
