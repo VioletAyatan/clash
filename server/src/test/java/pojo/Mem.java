@@ -15,7 +15,7 @@ public class Mem {
         this.name = name;
     }
 
-    public static Mem create(RaidSeason.MembersDTO member) {
+    public static Mem create(RaidSeason.RaidSeasonMember member) {
         return new Mem(member.getTag(), member.getName());
     }
 

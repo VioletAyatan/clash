@@ -9,18 +9,21 @@ public class RaidSeason {
     private String state;
     private String startTime;
     private String endTime;
-    private Integer capitalTotalLoot;
+    /**
+     * 当前赛季获取的总突袭币数量
+     */
+    private Long capitalTotalLoot;
     private Integer raidsCompleted;
     private Integer totalAttacks;
     private Integer enemyDistrictsDestroyed;
     private Integer offensiveReward;
-    private Integer defensiveReward;
-    private List<MembersDTO> members;
-    private List<AttackLogDTO> attackLog;
-    private List<DefenseLogDTO> defenseLog;
+    private Long defensiveReward;
+    private List<RaidSeasonMember> members;
+    private List<RaidSeasonAttackLog> attackLog;
+    private List<RaidSeasonDefenseLog> defenseLog;
 
     @Data
-    public static class MembersDTO {
+    public static class RaidSeasonMember {
         private String tag;
         private String name;
         private Integer attacks;
@@ -30,7 +33,7 @@ public class RaidSeason {
     }
 
     @Data
-    public static class AttackLogDTO {
+    public static class RaidSeasonAttackLog {
         private DefenderDTO defender;
         private Integer attackCount;
         private Integer districtCount;
@@ -84,7 +87,7 @@ public class RaidSeason {
     }
 
     @Data
-    public static class DefenseLogDTO {
+    public static class RaidSeasonDefenseLog {
         private AttackerDTO attacker;
         private Integer attackCount;
         private Integer districtCount;
