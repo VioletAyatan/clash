@@ -19,7 +19,7 @@ public class ClanApi extends AbstractApi {
      * 获取部落突袭周末数据
      *
      * @param clanTag 部落标签.
-     * @param limit   Limit the number of items returned in the response.
+     * @param limit   响应中的返回项目限制数量.
      * @param after   Return only items that occur after this marker.
      *                Before marker can be found from the response, inside the 'paging' property.
      *                Note that only after or before can be specified for a request, not both.
@@ -28,7 +28,7 @@ public class ClanApi extends AbstractApi {
      *                Note that only after or before can be specified for a request, not both.
      * @return {@link ItemResult<RaidSeason>}
      */
-    public ItemResult<RaidSeason> capitalRaidSeasons(String clanTag, Integer limit, String after, String before) {
+    public ItemResult<RaidSeason> capitalRaidSeasons(String clanTag, Integer limit, String after, String before) throws HttpException {
         HttpResponse response = super.doGet(BASE_URL + "/clans/" + clanTag + "/capitalraidseasons",
                 Map.of("limit", limit, "after", after, "before", before)
         );
@@ -45,7 +45,7 @@ public class ClanApi extends AbstractApi {
      * @param clanTag 部落标签.
      * @return {@link ItemResult<RaidSeason>}
      */
-    public ItemResult<RaidSeason> capitalRaidSeasons(String clanTag) {
+    public ItemResult<RaidSeason> capitalRaidSeasons(String clanTag) throws HttpException {
         return this.capitalRaidSeasons(clanTag, null, null, null);
     }
 
@@ -53,7 +53,7 @@ public class ClanApi extends AbstractApi {
      * 获取部落突袭周末数据
      *
      * @param clanTag 部落标签.
-     * @param limit   Limit the number of items returned in the response.
+     * @param limit   响应中的返回项目限制数量.
      * @return {@link ItemResult<RaidSeason>}
      */
     public ItemResult<RaidSeason> capitalRaidSeasons(String clanTag, Integer limit) {
@@ -61,17 +61,17 @@ public class ClanApi extends AbstractApi {
     }
 
     /**
-     * List clan members.
+     * 列举部落成员
      *
-     * @param clanTag Tag of the clan.
-     * @param limit   Limit the number of items returned in the response.
+     * @param clanTag 部落标签
+     * @param limit   响应中的返回项目限制数量.
      * @param after   Return only items that occur after this marker.
      *                Before marker can be found from the response, inside the 'paging' property.
      *                Note that only after or before can be specified for a request, not both.
      * @param before  Return only items that occur before this marker.
      *                Before marker can be found from the response, inside the 'paging' property.
      *                Note that only after or before can be specified for a request, not both.
-     * @return {@link ItemResult< ClanMember >}
+     * @return {@link ItemResult<ClanMember>}
      */
     public ItemResult<ClanMember> listMembers(String clanTag, Integer limit, String after, String before) {
         HttpResponse response = super.doGet(BASE_URL + "/clans/" + clanTag + "/members",
@@ -85,10 +85,10 @@ public class ClanApi extends AbstractApi {
     }
 
     /**
-     * List clan members.
+     * 列举部落成员
      *
-     * @param clanTag Tag of the clan.
-     * @return {@link ItemResult< ClanMember >}
+     * @param clanTag 部落标签
+     * @return {@link ItemResult<ClanMember>}
      */
     public ItemResult<ClanMember> listMembers(String clanTag) {
         return this.listMembers(clanTag, null, null, null);
