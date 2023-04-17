@@ -38,7 +38,7 @@ public class ClanApi extends AbstractApi {
             return GsonUtil.fromJson(response.body(), new TypeToken<>() {
             });
         }
-        throw new HttpException(response.body());
+        throw new HttpException("Error response status: {} Message: {}", response.getStatus(), response.body());
     }
 
     /**
@@ -86,7 +86,7 @@ public class ClanApi extends AbstractApi {
             return GsonUtil.fromJson(response.body(), new TypeToken<>() {
             });
         }
-        throw new HttpException(response.body());
+        throw new HttpException("Error response status: {} Message: {}", response.getStatus(), response.body());
     }
 
     /**
