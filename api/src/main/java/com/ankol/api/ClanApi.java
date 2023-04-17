@@ -1,14 +1,13 @@
 package com.ankol.api;
 
+import cn.hutool.core.map.MapUtil;
 import cn.hutool.http.HttpException;
 import cn.hutool.http.HttpResponse;
-import com.ankol.api.entity.ItemResult;
 import com.ankol.api.entity.ClanMember;
+import com.ankol.api.entity.ItemResult;
 import com.ankol.api.entity.RaidSeason;
 import com.ankol.tools.GsonUtil;
 import com.google.gson.reflect.TypeToken;
-
-import java.util.Map;
 
 public class ClanApi extends AbstractApi {
     public ClanApi(String authorization) {
@@ -30,13 +29,16 @@ public class ClanApi extends AbstractApi {
      */
     public ItemResult<RaidSeason> capitalRaidSeasons(String clanTag, Integer limit, String after, String before) throws HttpException {
         HttpResponse response = super.doGet(BASE_URL + "/clans/" + clanTag + "/capitalraidseasons",
-                Map.of("limit", limit, "after", after, "before", before)
+                MapUtil.<String, Object>builder("limit", limit)
+                        .put("after", after)
+                        .put("before", before)
+                        .build()
         );
         if (response.isOk()) {
             return GsonUtil.fromJson(response.body(), new TypeToken<>() {
             });
         }
-        throw new HttpException("");
+        throw new HttpException(response.body());
     }
 
     /**
@@ -75,13 +77,16 @@ public class ClanApi extends AbstractApi {
      */
     public ItemResult<ClanMember> listMembers(String clanTag, Integer limit, String after, String before) {
         HttpResponse response = super.doGet(BASE_URL + "/clans/" + clanTag + "/members",
-                Map.of("limit", limit, "after", after, "before", before)
+                MapUtil.<String, Object>builder("limit", limit)
+                        .put("after", after)
+                        .put("before", before)
+                        .build()
         );
         if (response.isOk()) {
             return GsonUtil.fromJson(response.body(), new TypeToken<>() {
             });
         }
-        throw new HttpException("");
+        throw new HttpException(response.body());
     }
 
     /**
