@@ -1,9 +1,10 @@
 package com.ankol.api;
 
-import cn.hutool.core.net.url.UrlBuilder;
+import cn.hutool.core.util.URLUtil;
 import cn.hutool.http.HttpResponse;
 import cn.hutool.http.HttpUtil;
 
+import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
@@ -29,7 +30,7 @@ public abstract class AbstractApi {
      * @return {@link HttpResponse}
      */
     protected HttpResponse doGet(String url, Map<String, Object> params) {
-        return HttpUtil.createGet(UrlBuilder.of(url, StandardCharsets.UTF_8).build())
+        return HttpUtil.createGet(URLUtil.encode(url, StandardCharsets.UTF_8))
                 .bearerAuth(authorization)
                 .form(params)
                 .executeAsync();
@@ -53,7 +54,7 @@ public abstract class AbstractApi {
      * @return {@link HttpResponse}
      */
     protected HttpResponse doPost(String url, String json) {
-        return HttpUtil.createGet(url)
+        return HttpUtil.createGet(URLEncoder.encode(url, StandardCharsets.UTF_8))
                 .bearerAuth(authorization)
                 .body(json)
                 .executeAsync();
@@ -77,7 +78,7 @@ public abstract class AbstractApi {
      * @return {@link HttpResponse}
      */
     protected HttpResponse doPut(String url, String json) {
-        return HttpUtil.createGet(url)
+        return HttpUtil.createGet(URLUtil.encode(url, StandardCharsets.UTF_8))
                 .bearerAuth(authorization)
                 .body(json)
                 .executeAsync();
@@ -90,7 +91,7 @@ public abstract class AbstractApi {
      * @return {@link HttpResponse}
      */
     protected HttpResponse doDelete(String url) {
-        return HttpUtil.createGet(url)
+        return HttpUtil.createGet(URLUtil.encode(url, StandardCharsets.UTF_8))
                 .bearerAuth(authorization)
                 .executeAsync();
     }
