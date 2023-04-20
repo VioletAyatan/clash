@@ -1,29 +1,22 @@
-import cn.hutool.core.date.DateUtil;
-import cn.hutool.core.io.FileUtil;
 import com.ankol.api.ClashApi;
-import com.ankol.api.entity.ItemResult;
 import com.ankol.api.entity.ClanMember;
+import com.ankol.api.entity.ItemResult;
 import com.ankol.api.entity.RaidSeason;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
 import org.junit.jupiter.api.Test;
 import pojo.Mem;
 
-import java.io.File;
-import java.nio.charset.Charset;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
+import java.util.stream.IntStream;
 
 public class MyTest {
 
-    private final ClashApi clashApi = new ClashApi("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiIsImtpZCI6IjI4YTMxOGY3LTAwMDAtYTFlYi03ZmExLTJjNzQzM2M2Y2NhNSJ9.eyJpc3MiOiJzdXBlcmNlbGwiLCJhdWQiOiJzdXBlcmNlbGw6Z2FtZWFwaSIsImp0aSI6ImFiYTM1NDdlLTg0YzctNDBiNy04YWM1LTVjODI0Njk0ZmRmMyIsImlhdCI6MTY3NzY1NjgxMSwic3ViIjoiZGV2ZWxvcGVyL2U5YWUxNzQwLThiNjgtYzAzZS04ZjIzLTkzODAwNWU0YzA5OSIsInNjb3BlcyI6WyJjbGFzaCJdLCJsaW1pdHMiOlt7InRpZXIiOiJkZXZlbG9wZXIvc2lsdmVyIiwidHlwZSI6InRocm90dGxpbmcifSx7ImNpZHJzIjpbIjE3MS4yMTcuMTI2LjE0NSIsIjE3MS4yMTYuODkuMTQ3IiwiNjEuMTM5LjY4Ljc4Il0sInR5cGUiOiJjbGllbnQifV19.PHE6hMUSYBbFWiMh4EypP_5ashwKDq9SwqwMG0rEAnpbgaBuEZZ2Ou2DzgDC7iF1-0EtMkcGFlFKO2q32gy6Cg");
+    private static final String CLAN_TAG = "#280Y0YGPJ";
+    private final ClashApi clashApi = new ClashApi("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiIsImtpZCI6IjI4YTMxOGY3LTAwMDAtYTFlYi03ZmExLTJjNzQzM2M2Y2NhNSJ9.eyJpc3MiOiJzdXBlcmNlbGwiLCJhdWQiOiJzdXBlcmNlbGw6Z2FtZWFwaSIsImp0aSI6IjU5YjQ1YTZiLWJkNzMtNGQ4MC1iZWE5LTcxOWJjZjRlOWNkMCIsImlhdCI6MTY4MTcxMjQwNywic3ViIjoiZGV2ZWxvcGVyL2U5YWUxNzQwLThiNjgtYzAzZS04ZjIzLTkzODAwNWU0YzA5OSIsInNjb3BlcyI6WyJjbGFzaCJdLCJsaW1pdHMiOlt7InRpZXIiOiJkZXZlbG9wZXIvc2lsdmVyIiwidHlwZSI6InRocm90dGxpbmcifSx7ImNpZHJzIjpbIjE3MS4yMTYuODkuMTUzIl0sInR5cGUiOiJjbGllbnQifV19.Cpqjk6UXDFU64BeDIArL54OvkZTg-RU_e9uP8z8Xj_qknOC_5mILO_sE9o3leQV0QNklaHIJ6WIVE4FZbcG8AA");
     @Test
     void test() {
-
         try {
-            ItemResult<ClanMember> members = clashApi.clan.listMembers("#280Y0YGPJ");
+            ItemResult<ClanMember> members = clashApi.clan.listMembers(CLAN_TAG);
             List<Mem> member = new ArrayList<>(members.getItems()
                     .stream()
                     .map(Mem::create)
@@ -52,37 +45,18 @@ public class MyTest {
     }
 
     @Test
-    void test2() {
-        try {
-            ClanResult<ClanMember> clanMembers = clashApi.getClanMembers("#280Y0YGPJ");
-            System.out.println("clanMembers = " + clanMembers);
-        } catch (ClashApiException e) {
-            System.err.println("API调用出错，原因：" + e.getMessage() + " 细节：" + e.getDetailMessage());
-        }
-    }
+    void average() {
+        RaidSeason raidSeason = clashApi.clan.capitalRaidSeasons(CLAN_TAG, 1)
+                .getItems().get(0);
 
-    @Test
-    void export() {
-        try {
+        IntStream allResourceLooted = raidSeason.getMembers()
+                .stream()
+                .mapToInt(RaidSeason.RaidSeasonMember::getCapitalResourcesLooted);
 
-            ClanResult<ClanCapital> clanCapitalRaidSeason = clashApi.getClanCapitalRaidSeason("#280Y0YGPJ", 1);
-
-            Gson gson = new GsonBuilder()
-                    .setPrettyPrinting()
-                    .create();
-
-            String json = gson.toJson(clanCapitalRaidSeason);
-
-            FileUtil.writeString(json, new File("raids/" + DateUtil.format(new Date(), "yyyyMMdd") + ".json"), Charset.defaultCharset());
-
-        } catch (ClashApiException e) {
-            System.err.println("API调用出错，原因：" + e.getMessage() + " 细节：" + e.getDetailMessage());
-        }
-    }
-
-    @Test
-    void warLeague() {
-        ClanWarLeagueInfo leagueInformation = clashApi.getClanWarLeagueInformation("#280Y0YGPJ");
-        System.out.println("leagueInformation = " + leagueInformation);
+        allResourceLooted.average()
+                .ifPresent(value -> {
+                    long round = Math.round(value);
+                    System.out.println("平均值 = " + round);
+                });
     }
 }

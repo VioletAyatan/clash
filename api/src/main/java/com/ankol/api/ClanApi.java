@@ -58,7 +58,7 @@ public class ClanApi extends AbstractApi {
      * @param limit   响应中的返回项目限制数量.
      * @return {@link ItemResult<RaidSeason>}
      */
-    public ItemResult<RaidSeason> capitalRaidSeasons(String clanTag, Integer limit) {
+    public ItemResult<RaidSeason> capitalRaidSeasons(String clanTag, Integer limit) throws HttpException {
         return this.capitalRaidSeasons(clanTag, limit, null, null);
     }
 

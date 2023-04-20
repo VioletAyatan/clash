@@ -1,5 +1,6 @@
 package org.example.server.dao.entity;
 
+import com.ankol.api.entity.ClanMember;
 import com.ankol.api.entity.RaidSeason;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -7,10 +8,8 @@ import org.example.server.tools.ClashUtil;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.MongoId;
 
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
-import java.util.TimeZone;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * 周末突袭数据
@@ -74,9 +73,33 @@ public class RaidSeasonEntity {
     public static class UnAttackMember {
         private String tag;
         private String name;
+
+        /**
+         * 数据结构转换
+         *
+         * @param member 成员 {@link com.ankol.api.entity.RaidSeason.RaidSeasonMember}
+         * @return {@link UnAttackMember}
+         */
+        public static UnAttackMember convertFrom(RaidSeason.RaidSeasonMember member) {
+            return new UnAttackMember()
+                    .setTag(member.getTag())
+                    .setName(member.getName());
+        }
+
+        /**
+         * 数据结构转换
+         *
+         * @param member 成员 {@link ClanMember}
+         * @return {@link UnAttackMember}
+         */
+        public static UnAttackMember convertFrom(ClanMember member) {
+            return new UnAttackMember()
+                    .setTag(member.getTag())
+                    .setName(member.getName());
+        }
     }
 
-    public static RaidSeasonEntity from(RaidSeason raidSeason) {
+    public static RaidSeasonEntity convertFrom(RaidSeason raidSeason) {
 
         List<RaidSeason.RaidSeasonMember> members = raidSeason.getMembers();
         members.sort((o1, o2) -> Integer.compare(o2.getCapitalResourcesLooted(), o1.getCapitalResourcesLooted()));
@@ -96,13 +119,26 @@ public class RaidSeasonEntity {
                 .setCapitalTotalLoot(raidSeason.getCapitalTotalLoot());
     }
 
-    /*public static void main(String[] args) {
-        DateTime parse = DateUtil.parse("20230414T070000.000Z", DatePattern.createFormatter("yyyyMMdd'T'HHmmss.SSS'Z'"));
-        System.out.println("parse = " + parse);
-        ZonedDateTime zonedDateTime = ZonedDateTime.ofInstant(parse.toInstant(), ZoneId.systemDefault());
-        System.out.println("zonedDateTime = " + zonedDateTime);
+    /**
+     * 转换为{@link RaidSeasonEntity}
+     *
+     * @param raidSeason  API获取的突袭周末战绩
+     * @param clanMembers 部落所有成员
+     * @return {@link RaidSeasonEntity}
+     */
+    public static RaidSeasonEntity convertFrom(RaidSeason raidSeason, List<ClanMember> clanMembers) {
+        RaidSeasonEntity raidSeasonEntity = convertFrom(raidSeason);
 
-        DateTime dateTime = DateUtil.convertTimeZone(parse, ZoneId.of("Asia/Shanghai"));
-        System.out.println("dateTime = " + dateTime);
-    }*/
+        List<UnAttackMember> attackMemberList = raidSeasonEntity.getMembers().stream().map(UnAttackMember::convertFrom).toList();
+        List<UnAttackMember> allMemberList = clanMembers.stream().map(UnAttackMember::convertFrom).collect(Collectors.toList());
+
+        //未进攻成员列表
+        ArrayList<UnAttackMember> unAttackMembers = new ArrayList<>(allMemberList);
+        //所有成员中移除已进攻成员，剩余的即未进攻成员.
+        unAttackMembers.removeAll(attackMemberList);
+
+        return raidSeasonEntity
+                .setAllMember(allMemberList)
+                .setNoAttackMembers(unAttackMembers);
+    }
 }
