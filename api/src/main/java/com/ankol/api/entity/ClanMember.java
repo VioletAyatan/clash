@@ -5,8 +5,8 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
-@NoArgsConstructor
 @Data
+@NoArgsConstructor
 public class ClanMember {
 
     private String tag;
