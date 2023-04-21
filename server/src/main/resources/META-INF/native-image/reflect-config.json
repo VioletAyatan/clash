@@ -1,0 +1,205 @@
+[
+  {
+    "name": "com.ankol.api.entity.ClanMember",
+    "allDeclaredFields": true,
+    "methods": [
+      {
+        "name": "<init>",
+        "parameterTypes": []
+      }
+    ]
+  },
+  {
+    "name": "com.ankol.api.entity.ClanMember$LeagueDTO",
+    "allDeclaredFields": true,
+    "methods": [
+      {
+        "name": "<init>",
+        "parameterTypes": []
+      }
+    ]
+  },
+  {
+    "name": "com.ankol.api.entity.ClanMember$LeagueDTO$IconUrlsDTO",
+    "allDeclaredFields": true,
+    "methods": [
+      {
+        "name": "<init>",
+        "parameterTypes": []
+      }
+    ]
+  },
+  {
+    "name": "com.ankol.api.entity.ClanMember$PlayerHouseDTO",
+    "allDeclaredFields": true,
+    "methods": [
+      {
+        "name": "<init>",
+        "parameterTypes": []
+      }
+    ]
+  },
+  {
+    "name": "com.ankol.api.entity.ClanMember$PlayerHouseDTO$ElementsDTO",
+    "allDeclaredFields": true,
+    "methods": [
+      {
+        "name": "<init>",
+        "parameterTypes": []
+      }
+    ]
+  },
+  {
+    "name": "com.ankol.api.entity.ItemResult",
+    "allDeclaredFields": true,
+    "methods": [
+      {
+        "name": "<init>",
+        "parameterTypes": []
+      }
+    ]
+  },
+  {
+    "name": "com.ankol.api.entity.RaidSeason",
+    "allDeclaredFields": true,
+    "methods": [
+      {
+        "name": "<init>",
+        "parameterTypes": []
+      }
+    ]
+  },
+  {
+    "name": "com.ankol.api.entity.RaidSeason$RaidSeasonAttackLog",
+    "allDeclaredFields": true,
+    "methods": [
+      {
+        "name": "<init>",
+        "parameterTypes": []
+      }
+    ]
+  },
+  {
+    "name": "com.ankol.api.entity.RaidSeason$RaidSeasonAttackLog$DefenderDTO",
+    "allDeclaredFields": true,
+    "methods": [
+      {
+        "name": "<init>",
+        "parameterTypes": []
+      }
+    ]
+  },
+  {
+    "name": "com.ankol.api.entity.RaidSeason$RaidSeasonAttackLog$DefenderDTO$BadgeUrlsDTO",
+    "allDeclaredFields": true,
+    "methods": [
+      {
+        "name": "<init>",
+        "parameterTypes": []
+      }
+    ]
+  },
+  {
+    "name": "com.ankol.api.entity.RaidSeason$RaidSeasonAttackLog$DistrictsDTO",
+    "allDeclaredFields": true,
+    "methods": [
+      {
+        "name": "<init>",
+        "parameterTypes": []
+      }
+    ]
+  },
+  {
+    "name": "com.ankol.api.entity.RaidSeason$RaidSeasonAttackLog$DistrictsDTO$AttacksDTO",
+    "allDeclaredFields": true,
+    "methods": [
+      {
+        "name": "<init>",
+        "parameterTypes": []
+      }
+    ]
+  },
+  {
+    "name": "com.ankol.api.entity.RaidSeason$RaidSeasonAttackLog$DistrictsDTO$AttacksDTO$AttackerDTO",
+    "allDeclaredFields": true,
+    "methods": [
+      {
+        "name": "<init>",
+        "parameterTypes": []
+      }
+    ]
+  },
+  {
+    "name": "com.ankol.api.entity.RaidSeason$RaidSeasonDefenseLog",
+    "allDeclaredFields": true,
+    "methods": [
+      {
+        "name": "<init>",
+        "parameterTypes": []
+      }
+    ]
+  },
+  {
+    "name": "com.ankol.api.entity.RaidSeason$RaidSeasonDefenseLog$AttackerDTO",
+    "allDeclaredFields": true,
+    "methods": [
+      {
+        "name": "<init>",
+        "parameterTypes": []
+      }
+    ]
+  },
+  {
+    "name": "com.ankol.api.entity.RaidSeason$RaidSeasonDefenseLog$AttackerDTO$BadgeUrlsDTO",
+    "allDeclaredFields": true,
+    "methods": [
+      {
+        "name": "<init>",
+        "parameterTypes": []
+      }
+    ]
+  },
+  {
+    "name": "com.ankol.api.entity.RaidSeason$RaidSeasonDefenseLog$DistrictsDTO",
+    "allDeclaredFields": true,
+    "methods": [
+      {
+        "name": "<init>",
+        "parameterTypes": []
+      }
+    ]
+  },
+  {
+    "name": "com.ankol.api.entity.RaidSeason$RaidSeasonDefenseLog$DistrictsDTO$AttacksDTO",
+    "allDeclaredFields": true,
+    "methods": [
+      {
+        "name": "<init>",
+        "parameterTypes": []
+      }
+    ]
+  },
+  {
+    "name": "com.ankol.api.entity.RaidSeason$RaidSeasonDefenseLog$DistrictsDTO$AttacksDTO$AttackerDTO",
+    "allDeclaredFields": true,
+    "methods": [
+      {
+        "name": "<init>",
+        "parameterTypes": []
+      }
+    ]
+  },
+  {
+    "name": "com.ankol.api.entity.RaidSeason$RaidSeasonMember",
+    "allDeclaredFields": true,
+    "queryAllDeclaredMethods": true,
+    "queryAllPublicMethods": true,
+    "queryAllDeclaredConstructors": true,
+    "methods": [
+      {
+        "name": "<init>",
+        "parameterTypes": []
+      }
+    ]
+  }
+]
