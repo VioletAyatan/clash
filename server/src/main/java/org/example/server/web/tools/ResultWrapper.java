@@ -2,9 +2,11 @@ package org.example.server.web.tools;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.aot.hint.annotation.Reflective;
 
 @Getter
 @Setter
+@Reflective
 public class ResultWrapper<T> {
     private Integer code;
     private String message;

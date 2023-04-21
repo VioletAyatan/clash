@@ -9,9 +9,10 @@ import java.util.Set;
 
 /**
  * ClashApiRuntimeHitsRegistrar
+ *
  * @author Administrator
  */
-public class ClashApiRuntimeHitsRegistrar implements RuntimeHintsRegistrar {
+public class ClashApiRuntimeHits implements RuntimeHintsRegistrar {
     @Override
     public void registerHints(RuntimeHints hints, ClassLoader classLoader) {
         for (Class<?> target : this.getClashApiEntityTypeHits()) {

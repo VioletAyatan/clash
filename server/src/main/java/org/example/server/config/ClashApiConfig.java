@@ -11,7 +11,7 @@ import org.springframework.context.annotation.ImportRuntimeHints;
 @Slf4j
 @Configuration
 @RequiredArgsConstructor
-@ImportRuntimeHints(ClashApiRuntimeHitsRegistrar.class)
+@ImportRuntimeHints(ClashApiRuntimeHits.class)
 public class ClashApiConfig {
 
     private final ClashProperties clashProperties;

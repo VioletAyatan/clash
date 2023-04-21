@@ -41,4 +41,10 @@ public class ClashDataOperationServiceImpl implements ClashDataOperationService 
             log.error(e.getMessage());
         }
     }
+
+    @Override
+    public void triggerClanMemberUpdate() {
+        List<ClanMember> clanMembers = clashApi.clan.listMembers(clashProperties.getClanTag()).getItems();
+
+    }
 }

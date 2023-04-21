@@ -20,8 +20,4 @@ public class ClashController {
         return clashServices.listRaidSeason();
     }
 
-//    @GetMapping("/war_leagues")
-//    public Iterable<WarLeagueGroupInfoDao> warLeagues() {
-//        return warLeagueRepository.findAll();
-//    }
 }

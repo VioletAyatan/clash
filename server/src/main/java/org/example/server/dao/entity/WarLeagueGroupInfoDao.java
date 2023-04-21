@@ -16,7 +16,6 @@ import java.util.List;
 public class WarLeagueGroupInfoDao {
     @MongoId
     private String id;
-
     private String state;
     private String season;
     private List<WarLeagueDaoClan> clans;
