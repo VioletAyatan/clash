@@ -1,5 +1,6 @@
 package com.ankol.api.entity;
 
+import com.ankol.api.entity.common.BadgeUrlsDTO;
 import lombok.Data;
 
 import java.util.List;
@@ -47,14 +48,6 @@ public class RaidSeason {
             private String name;
             private Integer level;
             private BadgeUrlsDTO badgeUrls;
-
-            @lombok.NoArgsConstructor
-            @lombok.Data
-            public static class BadgeUrlsDTO {
-                private String small;
-                private String large;
-                private String medium;
-            }
         }
 
         @lombok.NoArgsConstructor
@@ -100,13 +93,6 @@ public class RaidSeason {
             private String name;
             private Integer level;
             private BadgeUrlsDTO badgeUrls;
-
-           @Data
-            public static class BadgeUrlsDTO {
-                private String small;
-                private String large;
-                private String medium;
-            }
         }
 
         @Data

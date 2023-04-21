@@ -3,6 +3,7 @@ package com.ankol.api;
 import cn.hutool.core.map.MapUtil;
 import cn.hutool.http.HttpException;
 import cn.hutool.http.HttpResponse;
+import com.ankol.api.entity.Clan;
 import com.ankol.api.entity.ClanMember;
 import com.ankol.api.entity.ItemResult;
 import com.ankol.api.entity.RaidSeason;
@@ -12,6 +13,31 @@ import com.google.gson.reflect.TypeToken;
 public class ClanApi extends AbstractApi {
     public ClanApi(String authorization) {
         super(authorization);
+    }
+
+    /**
+     * 通过部落标签获取单个氏族的信息，部落标签可以通过部落搜索找到。
+     * <p>请注意，部落标签以哈希字符'#'开头，需要正确地进行URL编码才能在URL中发挥作用。</p>
+     * <p>例如，部落标签'#2ABC'在URL中会变成'%232ABC'。</p>
+     *
+     * @param clanTag 部落标签
+     * @return 单个部落信息
+     */
+    public Clan clan(String clanTag) {
+        HttpResponse response = super.doGet(BASE_URL + "/clans/" + clanTag);
+        if (response.isOk()) {
+            return GsonUtil.fromJson(response.body(), Clan.class);
+        }
+        throw new HttpException("Error response status [{}] Message: {}", response.getStatus(), response.body());
+    }
+
+    /**
+     * 获取部落当前的部落战信息
+     *
+     * @param clanTag 部落标签
+     */
+    public void currentWar(String clanTag) {
+
     }
 
     /**
