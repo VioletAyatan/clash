@@ -6,12 +6,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.ankol.api.ClashApi;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.ImportRuntimeHints;
 
 @Slf4j
 @Configuration
 @RequiredArgsConstructor
-@ImportRuntimeHints(ClashApiRuntimeHits.class)
 public class ClashApiConfig {
 
     private final ClashProperties clashProperties;
