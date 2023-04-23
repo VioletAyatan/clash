@@ -10,9 +10,8 @@
         <version>3.0.6</version>
     </parent>
 
-    <groupId>org.example</groupId>
-    <artifactId>Clash-demo</artifactId>
-    <packaging>pom</packaging>
+    <groupId>org.ankol</groupId>
+    <artifactId>clash-server</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
