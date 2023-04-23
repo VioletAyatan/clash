@@ -25,7 +25,7 @@ public class ClashDataOperationServiceImpl implements ClashDataOperationService 
     private ClashProperties clashProperties;
 
     @Override
-    public void triggerRaidSeasonUpdate() {
+    public boolean triggerRaidSeasonUpdate() {
         try {
             //获取部落总成员数量
             List<ClanMember> clanMembers = clashApi.clan.listMembers(clashProperties.getClanTag()).getItems();
@@ -37,8 +37,10 @@ public class ClashDataOperationServiceImpl implements ClashDataOperationService 
             RaidSeasonEntity raidSeasonEntity = RaidSeasonEntity.convertFrom(raidSeason, clanMembers);
             //入库
             raidSeasonRepository.save(raidSeasonEntity);
+            return true;
         } catch (HttpException e) {
             log.error(e.getMessage());
+            return false;
         }
     }
 
