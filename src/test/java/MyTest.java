@@ -1,7 +1,7 @@
-import com.ankol.api.ClashApi;
-import com.ankol.api.entity.ClanMember;
-import com.ankol.api.entity.ItemResult;
-import com.ankol.api.entity.RaidSeason;
+import org.ankol.api.ClashApi;
+import org.ankol.api.entity.ClanMember;
+import org.ankol.api.entity.ItemResult;
+import org.ankol.api.entity.RaidSeason;
 import org.junit.jupiter.api.Test;
 import pojo.Mem;
 

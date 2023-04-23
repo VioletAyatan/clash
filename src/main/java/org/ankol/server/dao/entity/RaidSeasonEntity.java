@@ -1,9 +1,9 @@
 package org.ankol.server.dao.entity;
 
-import com.ankol.api.entity.ClanMember;
-import com.ankol.api.entity.RaidSeason;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.ankol.api.entity.ClanMember;
+import org.ankol.api.entity.RaidSeason;
 import org.ankol.server.tools.ClashUtil;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.MongoId;
