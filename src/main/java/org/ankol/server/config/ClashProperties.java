@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 public class ClashProperties {
     public static final String PREFIX = "clash-manager";
     /**
-     * 访问官方Api接口所需的Token，如何获取请参考：[developer.clashofclans.com](https://developer.clashofclans.com/#/getting-started)
+     * 访问官方Api接口所需的Token，如何获取请参考：<a href="https://developer.clashofclans.com/#/getting-started">developer.clashofclans.com</a>
      */
     private String apiAccessToken;
     /**
