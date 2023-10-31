@@ -3,7 +3,7 @@ package org.ankol.server.config;
 import cn.hutool.core.util.StrUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.ankol.api.ClashApi;
+import org.ankol.server.api.ClashApi;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

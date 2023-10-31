@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import java.util.concurrent.TimeUnit;
+
 @Slf4j
 @Component
 public class RaidSeasonSchedule {
@@ -25,10 +27,13 @@ public class RaidSeasonSchedule {
         boolean success = clashDataOperationService.triggerRaidSeasonUpdate();
         if (success) {
             log.info("部落突袭周末信息更新完成...");
-        }else {
+        } else {
             log.info("部落突袭周末信息更新失败...");
         }
     }
 
-
+    @Scheduled(fixedDelay = 1L, timeUnit = TimeUnit.DAYS)
+    public void updateMembers() {
+        clashDataOperationService.triggerClanMemberUpdate();
+    }
 }

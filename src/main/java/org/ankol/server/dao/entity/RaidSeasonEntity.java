@@ -2,8 +2,8 @@ package org.ankol.server.dao.entity;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.ankol.api.entity.ClanMember;
-import org.ankol.api.entity.RaidSeason;
+import org.ankol.server.api.entity.ClanMember;
+import org.ankol.server.api.entity.RaidSeason;
 import org.ankol.server.tools.ClashUtil;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.MongoId;
@@ -77,7 +77,7 @@ public class RaidSeasonEntity {
         /**
          * 数据结构转换
          *
-         * @param member 成员 {@link com.ankol.api.entity.RaidSeason.RaidSeasonMember}
+         * @param member 成员 {@link org.ankol.server.api.entity.RaidSeason.RaidSeasonMember}
          * @return {@link UnAttackMember}
          */
         public static UnAttackMember convertFrom(RaidSeason.RaidSeasonMember member) {

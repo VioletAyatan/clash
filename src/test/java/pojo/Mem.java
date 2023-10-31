@@ -1,8 +1,8 @@
 package pojo;
 
 import lombok.Data;
-import org.ankol.api.entity.ClanMember;
-import org.ankol.api.entity.RaidSeason;
+import org.ankol.server.api.entity.ClanMember;
+import org.ankol.server.api.entity.RaidSeason;
 
 
 @Data

@@ -2,9 +2,9 @@ package org.ankol.server.services.impl;
 
 import cn.hutool.http.HttpException;
 import lombok.extern.slf4j.Slf4j;
-import org.ankol.api.ClashApi;
-import org.ankol.api.entity.ClanMember;
-import org.ankol.api.entity.RaidSeason;
+import org.ankol.server.api.ClashApi;
+import org.ankol.server.api.entity.ClanMember;
+import org.ankol.server.api.entity.RaidSeason;
 import org.ankol.server.config.ClashProperties;
 import org.ankol.server.dao.RaidSeasonRepository;
 import org.ankol.server.dao.entity.RaidSeasonEntity;
@@ -48,5 +48,8 @@ public class ClashDataOperationServiceImpl implements ClashDataOperationService 
     public void triggerClanMemberUpdate() {
         List<ClanMember> clanMembers = clashApi.clan.listMembers(clashProperties.getClanTag()).getItems();
 
+        for (ClanMember clanMember : clanMembers) {
+
+        }
     }
 }

@@ -8,5 +8,8 @@ public interface ClashDataOperationService {
      */
     boolean triggerRaidSeasonUpdate();
 
+    /**
+     * 更新部落成员信息
+     */
     void triggerClanMemberUpdate();
 }
