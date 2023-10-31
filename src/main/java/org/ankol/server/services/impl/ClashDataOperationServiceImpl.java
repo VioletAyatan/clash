@@ -1,17 +1,22 @@
 package org.ankol.server.services.impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.http.HttpException;
 import lombok.extern.slf4j.Slf4j;
 import org.ankol.server.api.ClashApi;
 import org.ankol.server.api.entity.ClanMember;
+import org.ankol.server.api.entity.ClanPlayer;
 import org.ankol.server.api.entity.RaidSeason;
 import org.ankol.server.config.ClashProperties;
 import org.ankol.server.dao.RaidSeasonRepository;
+import org.ankol.server.dao.entity.ClanMemberEntity;
 import org.ankol.server.dao.entity.RaidSeasonEntity;
 import org.ankol.server.services.ClashDataOperationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -23,6 +28,8 @@ public class ClashDataOperationServiceImpl implements ClashDataOperationService 
     private RaidSeasonRepository raidSeasonRepository;
     @Autowired
     private ClashProperties clashProperties;
+    @Autowired
+    private MongoTemplate mongoTemplate;
 
     @Override
     public boolean triggerRaidSeasonUpdate() {
@@ -45,11 +52,26 @@ public class ClashDataOperationServiceImpl implements ClashDataOperationService 
     }
 
     @Override
-    public void triggerClanMemberUpdate() {
+    public List<ClanMemberEntity> triggerClanMemberUpdate() {
         List<ClanMember> clanMembers = clashApi.clan.listMembers(clashProperties.getClanTag()).getItems();
 
-        for (ClanMember clanMember : clanMembers) {
+        ArrayList<ClanMemberEntity> saveEntity = new ArrayList<>(clanMembers.size());
 
+        for (ClanMember clanMember : clanMembers) {
+            ClanPlayer playerDetail = clashApi.player.getPlayerDetail(clanMember.getTag());
+            ClanMemberEntity clanMemberEntity = new ClanMemberEntity();
+            //拷贝属性
+            BeanUtil.copyProperties(clanMember, clanMemberEntity, true);
+
+            clanMemberEntity
+                    .setTownHallLevel(playerDetail.getTownHallLevel())
+                    .setTownHallWeaponLevel(playerDetail.getTownHallWeaponLevel());
+
+            saveEntity.add(clanMemberEntity);
         }
+
+        mongoTemplate.insertAll(saveEntity);
+
+        return saveEntity;
     }
 }
