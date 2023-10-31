@@ -8,8 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import java.util.concurrent.TimeUnit;
-
 @Slf4j
 @Component
 public class RaidSeasonSchedule {
@@ -32,7 +30,8 @@ public class RaidSeasonSchedule {
         }
     }
 
-    @Scheduled(fixedDelay = 1L, timeUnit = TimeUnit.DAYS)
+//    @Scheduled(fixedDelay = 1L, timeUnit = TimeUnit.DAYS)
+    @Scheduled(cron = "0 0 0 * * ?")
     public void updateMembers() {
         clashDataOperationService.triggerClanMemberUpdate();
     }
