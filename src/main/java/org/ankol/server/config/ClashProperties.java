@@ -1,11 +1,13 @@
 package org.ankol.server.config;
 
 import lombok.Data;
+import lombok.experimental.Accessors;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 @Data
 @Component
+@Accessors(chain = false)
 @ConfigurationProperties(prefix = ClashProperties.PREFIX)
 public class ClashProperties {
     public static final String PREFIX = "clash-manager";
