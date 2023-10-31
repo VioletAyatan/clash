@@ -30,9 +30,13 @@ public class RaidSeasonSchedule {
         }
     }
 
-//    @Scheduled(fixedDelay = 1L, timeUnit = TimeUnit.DAYS)
+    //    @Scheduled(fixedDelay = 1L, timeUnit = TimeUnit.DAYS)
     @Scheduled(cron = "0 0 0 * * ?")
     public void updateMembers() {
-        clashDataOperationService.triggerClanMemberUpdate();
+        try {
+            clashDataOperationService.triggerClanMemberUpdate();
+        } catch (RuntimeException e) {
+            log.error("部落成员信息更新失败！", e);
+        }
     }
 }
