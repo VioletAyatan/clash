@@ -7,9 +7,9 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class RaidSeasonInitializer implements InitializingBean {
+
     @Autowired
     private ClashDataOperationService clashDataOperationService;
-
     @Override
     public void afterPropertiesSet() {
         clashDataOperationService.triggerRaidSeasonUpdate();
