@@ -1,5 +1,6 @@
 package org.ankol.server.services;
 
+import org.ankol.server.dao.entity.ClanMemberEntity;
 import org.ankol.server.dao.entity.RaidSeasonEntity;
 
 import java.util.List;
@@ -31,4 +32,6 @@ public interface ClashServices {
      * @return 突袭周末战绩
      */
     RaidSeasonEntity findRaidSeasonById(String id);
+
+    List<ClanMemberEntity> getClanMember();
 }

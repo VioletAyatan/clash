@@ -1,5 +1,6 @@
 package org.ankol.server.web.controller;
 
+import org.ankol.server.dao.entity.ClanMemberEntity;
 import org.ankol.server.dao.entity.RaidSeasonEntity;
 import org.ankol.server.services.ClashServices;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,4 +21,8 @@ public class ClashController {
         return clashServices.listRaidSeason();
     }
 
+    @GetMapping("/members")
+    public List<ClanMemberEntity> getMembers() {
+        return clashServices.getClanMember();
+    }
 }
