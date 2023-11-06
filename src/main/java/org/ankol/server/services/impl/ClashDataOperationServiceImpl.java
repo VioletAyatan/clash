@@ -9,11 +9,11 @@ import org.ankol.server.api.entity.ClanMember;
 import org.ankol.server.api.entity.ClanPlayer;
 import org.ankol.server.api.entity.RaidSeason;
 import org.ankol.server.config.ClashProperties;
+import org.ankol.server.dao.ClanMemberRepository;
 import org.ankol.server.dao.RaidSeasonRepository;
 import org.ankol.server.dao.entity.ClanMemberEntity;
 import org.ankol.server.dao.entity.RaidSeasonEntity;
 import org.ankol.server.services.ClashDataOperationService;
-import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -25,8 +25,8 @@ import java.util.List;
 public class ClashDataOperationServiceImpl implements ClashDataOperationService {
     private final ClashApi clashApi;
     private final RaidSeasonRepository raidSeasonRepository;
+    private final ClanMemberRepository clanMemberRepository;
     private final ClashProperties clashProperties;
-    private final MongoTemplate mongoTemplate;
 
     @Override
     public boolean triggerRaidSeasonUpdate() {
@@ -67,7 +67,7 @@ public class ClashDataOperationServiceImpl implements ClashDataOperationService 
             saveEntity.add(clanMemberEntity);
         }
 
-        mongoTemplate.insertAll(saveEntity);
+        clanMemberRepository.saveAll(saveEntity);
 
         return saveEntity;
     }
