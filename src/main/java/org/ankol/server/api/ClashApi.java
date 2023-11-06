@@ -107,17 +107,19 @@ public class ClashApi extends AbstractApi {
          * @return {@link ItemResult <  ClanMember  >}
          */
         public ItemResult<ClanMember> listMembers(String clanTag, Integer limit, String after, String before) {
-            HttpResponse response = super.doGet(BASE_URL + "/clans/" + clanTag + "/members",
+            try (HttpResponse response = super.doGet(BASE_URL + "/clans/" + clanTag + "/members",
                     MapUtil.<String, Object>builder("limit", limit)
                             .put("after", after)
                             .put("before", before)
                             .build()
-            );
-            if (response.isOk()) {
-                return GsonUtil.fromJson(response.body(), new TypeToken<>() {
-                });
+            )) {
+                if (response.isOk()) {
+                    return GsonUtil.fromJson(response.body(), new TypeToken<>() {
+                    });
+                } else {
+                    throw new HttpException(response.body());
+                }
             }
-            throw new HttpException("Error response status [{}] Message: {}", response.getStatus(), response.body());
         }
 
         /**
