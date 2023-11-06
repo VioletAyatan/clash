@@ -30,7 +30,7 @@ public class RaidSeasonSchedule {
         }
     }
 
-    //    @Scheduled(fixedDelay = 1L, timeUnit = TimeUnit.DAYS)
+//    @Scheduled(fixedDelay = 1L, timeUnit = TimeUnit.DAYS)
     @Scheduled(cron = "0 0 0 * * ?")
     public void updateMembers() {
         try {
