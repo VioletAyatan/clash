@@ -157,4 +157,19 @@ public class ClashApi extends AbstractApi {
             }
         }
     }
+
+    /**
+     * 文件相关接口
+     * @author Administrator
+     */
+    public static class Files extends AbstractApi {
+        /**
+         * 初始化一个API类实例
+         *
+         * @param authorization
+         */
+        protected Files(String authorization) {
+            super(authorization);
+        }
+    }
 }
