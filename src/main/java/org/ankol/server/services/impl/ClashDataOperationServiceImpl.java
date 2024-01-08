@@ -35,12 +35,12 @@ public class ClashDataOperationServiceImpl implements ClashDataOperationService 
         try {
             RaidSeasonEntity saveEntity = new RaidSeasonEntity();
             //获取部落总成员数量
-//            List<ClanMember> clanMembers = clashApi.clan.listMembers(clashProperties.getClanTag()).getItems();
+            List<ClanMember> clanMembers = clashApi.clan.listMembers(clashProperties.getClanTag()).getItems();
             //获取本赛季突袭周末数据
             RaidSeason raidSeason = clashApi.clan.capitalRaidSeasons(clashProperties.getClanTag(), 1)
                     .getItems()
                     .get(0);
-
+            //临时变量.
             Map<String, RaidSeasonEntity.AttackMember> attackMemberHashMap = new ConcurrentHashMap<>();
             raidSeason.getMembers().parallelStream()
                     .forEach(member -> {
@@ -54,6 +54,12 @@ public class ClashDataOperationServiceImpl implements ClashDataOperationService 
                                         .setCapitalResourcesLooted(member.getCapitalResourcesLooted())
                         );
                     });
+            //获取未进攻成员数量
+            clanMembers.removeIf(item -> attackMemberHashMap.containsKey(item.getTag()));
+            saveEntity.setNoAttackMembers(clanMembers.stream()
+                    .map(RaidSeasonEntity.UnAttackMember::convertFrom)
+                    .toList()
+            );
 
             //1️⃣第一重循环（都城进攻日志，对应本周打了多少个都城）
             for (int i = 0; i < raidSeason.getAttackLog().size(); i++) {
