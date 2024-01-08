@@ -3,6 +3,7 @@ package org.ankol.server.api.entity;
 import lombok.Data;
 import org.ankol.server.api.entity.common.BadgeUrlsDTO;
 
+import java.util.Collections;
 import java.util.List;
 
 @Data
@@ -25,11 +26,29 @@ public class RaidSeason {
 
     @Data
     public static class RaidSeasonMember {
+        /**
+         * 标签
+         */
         private String tag;
+        /**
+         * 名称
+         */
         private String name;
+        /**
+         * 出刀数
+         */
         private Integer attacks;
+        /**
+         * 进攻次数
+         */
         private Integer attackLimit;
+        /**
+         * 奖励进攻次数
+         */
         private Integer bonusAttackLimit;
+        /**
+         * 总获取的资源币总量.
+         */
         private Integer capitalResourcesLooted;
     }
 
@@ -39,7 +58,7 @@ public class RaidSeason {
         private Integer attackCount;
         private Integer districtCount;
         private Integer districtsDestroyed;
-        private List<DistrictsDTO> districts;
+        private List<DistrictsDTO> districts = Collections.emptyList();
 
         @lombok.NoArgsConstructor
         @Data
@@ -60,7 +79,7 @@ public class RaidSeason {
             private Integer stars;
             private Integer attackCount;
             private Integer totalLooted;
-            private List<AttacksDTO> attacks;
+            private List<AttacksDTO> attacks = Collections.emptyList();
 
             @lombok.NoArgsConstructor
             @Data

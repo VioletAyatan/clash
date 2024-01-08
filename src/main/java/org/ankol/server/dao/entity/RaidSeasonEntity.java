@@ -4,12 +4,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.ankol.server.api.entity.ClanMember;
 import org.ankol.server.api.entity.RaidSeason;
-import org.ankol.server.tools.ClashUtil;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.MongoId;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
 
 /**
  * 周末突袭数据
@@ -50,7 +50,7 @@ public class RaidSeasonEntity {
     /**
      * 参与进攻的成员
      */
-    private List<RaidSeason.RaidSeasonMember> members = Collections.emptyList();
+    private List<AttackMember> members = Collections.emptyList();
     /**
      * 未参与进攻的成员.
      */
@@ -67,6 +67,54 @@ public class RaidSeasonEntity {
      * 获取的总突袭币
      */
     private Long capitalTotalLoot;
+
+    @Data
+    public static class AttackMember {
+        /**
+         * 标签
+         */
+        private String tag;
+        /**
+         * 名称
+         */
+        private String name;
+        /**
+         * 出刀数
+         */
+        private Integer attacks;
+        /**
+         * 进攻次数
+         */
+        private Integer attackLimit;
+        /**
+         * 奖励进攻次数
+         */
+        private Integer bonusAttackLimit;
+        /**
+         * 总获取的资源币总量.
+         */
+        private Integer capitalResourcesLooted;
+        /**
+         * 成员进攻日志
+         */
+        private List<AttackLog> attackLogs;
+
+        @Data
+        public static class AttackLog {
+            /**
+             * 摧毁百分比
+             */
+            private Integer destructionPercent;
+            /**
+             * 星数
+             */
+            private Integer stars;
+            /**
+             * 进攻顺序
+             */
+            private Integer sequence;
+        }
+    }
 
     @Data
     @NoArgsConstructor
@@ -104,7 +152,7 @@ public class RaidSeasonEntity {
         List<RaidSeason.RaidSeasonMember> members = raidSeason.getMembers();
         members.sort((o1, o2) -> Integer.compare(o2.getCapitalResourcesLooted(), o1.getCapitalResourcesLooted()));
 
-        return new RaidSeasonEntity()
+        /*return new RaidSeasonEntity()
                 .setId(ClashUtil.getRaidSeasonId(raidSeason.getStartTime()))
                 .setState(raidSeason.getState())
                 .setCreateTime(new Date())
@@ -116,7 +164,8 @@ public class RaidSeasonEntity {
                 .setDefensiveReward(raidSeason.getDefensiveReward())
                 .setTotalAttacks(raidSeason.getTotalAttacks())
                 .setRaidsCompleted(raidSeason.getRaidsCompleted())
-                .setCapitalTotalLoot(raidSeason.getCapitalTotalLoot());
+                .setCapitalTotalLoot(raidSeason.getCapitalTotalLoot());*/
+        return null;
     }
 
     /**
@@ -127,7 +176,7 @@ public class RaidSeasonEntity {
      * @return {@link RaidSeasonEntity}
      */
     public static RaidSeasonEntity convertFrom(RaidSeason raidSeason, List<ClanMember> clanMembers) {
-        RaidSeasonEntity raidSeasonEntity = convertFrom(raidSeason);
+        /*RaidSeasonEntity raidSeasonEntity = convertFrom(raidSeason);
 
         List<UnAttackMember> attackMemberList = raidSeasonEntity.getMembers().stream().map(UnAttackMember::convertFrom).toList();
         List<UnAttackMember> allMemberList = clanMembers.stream().map(UnAttackMember::convertFrom).collect(Collectors.toList());
@@ -139,6 +188,7 @@ public class RaidSeasonEntity {
 
         return raidSeasonEntity
                 .setAllMember(allMemberList)
-                .setNoAttackMembers(unAttackMembers);
+                .setNoAttackMembers(unAttackMembers);*/
+        return null;
     }
 }
