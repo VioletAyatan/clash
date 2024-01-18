@@ -38,11 +38,17 @@ public class ClashApi extends AbstractApi {
 
         /**
          * 获取部落当前的部落战信息
+         * <p>注意：必须要在部落设置中 <b>公开部落对战日志</b> 才可通过api查询到部落战信息</p>
          *
          * @param clanTag 部落标签
+         * @return
          */
-        public void currentWar(String clanTag) {
-
+        public ClanWar currentWar(String clanTag) throws HttpException {
+            HttpResponse response = super.doGet(BASE_URL + "/clans/" + clanTag + "/currentwar");
+            if (response.isOk()) {
+                return GsonUtil.fromJson(response.body(), ClanWar.class);
+            }
+            throw new HttpException("Error response status [{}] Message: {}", response.getStatus(), response.body());
         }
 
         /**
@@ -76,7 +82,7 @@ public class ClashApi extends AbstractApi {
          * 获取部落突袭周末数据
          *
          * @param clanTag 部落标签.
-         * @return {@link ItemResult < RaidSeason >}
+         * @return {@link ItemResult}
          */
         public ItemResult<RaidSeason> capitalRaidSeasons(String clanTag) throws HttpException {
             return this.capitalRaidSeasons(clanTag, null, null, null);
@@ -87,7 +93,7 @@ public class ClashApi extends AbstractApi {
          *
          * @param clanTag 部落标签.
          * @param limit   响应中的返回项目限制数量.
-         * @return {@link ItemResult < RaidSeason >}
+         * @return {@link ItemResult}
          */
         public ItemResult<RaidSeason> capitalRaidSeasons(String clanTag, Integer limit) throws HttpException {
             return this.capitalRaidSeasons(clanTag, limit, null, null);
@@ -104,7 +110,7 @@ public class ClashApi extends AbstractApi {
          * @param before  Return only items that occur before this marker.
          *                Before marker can be found from the response, inside the 'paging' property.
          *                Note that only after or before can be specified for a request, not both.
-         * @return {@link ItemResult <  ClanMember  >}
+         * @return {@link ItemResult}
          */
         public ItemResult<ClanMember> listMembers(String clanTag, Integer limit, String after, String before) {
             try (HttpResponse response = super.doGet(BASE_URL + "/clans/" + clanTag + "/members",
@@ -126,7 +132,7 @@ public class ClashApi extends AbstractApi {
          * 列举部落成员
          *
          * @param clanTag 部落标签
-         * @return {@link ItemResult < ClanMember >}
+         * @return {@link ItemResult}
          */
         public ItemResult<ClanMember> listMembers(String clanTag) {
             return this.listMembers(clanTag, null, null, null);
@@ -160,6 +166,7 @@ public class ClashApi extends AbstractApi {
 
     /**
      * 文件相关接口
+     *
      * @author Administrator
      */
     public static class Files extends AbstractApi {
