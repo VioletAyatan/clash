@@ -3,7 +3,6 @@ spring:
     name: clash-server
   data:
     mongodb:
-#      uri: mongodb+srv://lck:Heikediguo123@cluster0.asnfocp.mongodb.net/?retryWrites=true&w=majority
       database: clash
       host: localhost
 
