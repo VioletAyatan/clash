@@ -23,6 +23,6 @@ public class ClashController {
 
     @GetMapping("/members")
     public List<ClanMemberEntity> getMembers() {
-        return clashServices.getClanMember();
+        return clashServices.clanMember;
     }
 }

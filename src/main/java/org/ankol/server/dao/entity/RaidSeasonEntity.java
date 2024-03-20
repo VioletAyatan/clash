@@ -128,7 +128,7 @@ public class RaidSeasonEntity {
          * @param member 成员 {@link org.ankol.server.api.entity.RaidSeason.RaidSeasonMember}
          * @return {@link UnAttackMember}
          */
-        public static UnAttackMember convertFrom(RaidSeason.RaidSeasonMember member) {
+        public static UnAttackMember of(RaidSeason.RaidSeasonMember member) {
             return new UnAttackMember()
                     .setTag(member.getTag())
                     .setName(member.getName());
@@ -140,7 +140,7 @@ public class RaidSeasonEntity {
          * @param member 成员 {@link ClanMember}
          * @return {@link UnAttackMember}
          */
-        public static UnAttackMember convertFrom(ClanMember member) {
+        public static UnAttackMember of(ClanMember member) {
             return new UnAttackMember()
                     .setTag(member.getTag())
                     .setName(member.getName());
@@ -176,10 +176,10 @@ public class RaidSeasonEntity {
      * @return {@link RaidSeasonEntity}
      */
     public static RaidSeasonEntity convertFrom(RaidSeason raidSeason, List<ClanMember> clanMembers) {
-        /*RaidSeasonEntity raidSeasonEntity = convertFrom(raidSeason);
+        /*RaidSeasonEntity raidSeasonEntity = of(raidSeason);
 
-        List<UnAttackMember> attackMemberList = raidSeasonEntity.getMembers().stream().map(UnAttackMember::convertFrom).toList();
-        List<UnAttackMember> allMemberList = clanMembers.stream().map(UnAttackMember::convertFrom).collect(Collectors.toList());
+        List<UnAttackMember> attackMemberList = raidSeasonEntity.getMembers().stream().map(UnAttackMember::of).toList();
+        List<UnAttackMember> allMemberList = clanMembers.stream().map(UnAttackMember::of).collect(Collectors.toList());
 
         //未进攻成员列表
         ArrayList<UnAttackMember> unAttackMembers = new ArrayList<>(allMemberList);

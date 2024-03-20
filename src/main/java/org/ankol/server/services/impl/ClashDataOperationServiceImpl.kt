@@ -1,146 +1,160 @@
-package org.ankol.server.services.impl;
+package org.ankol.server.services.impl
 
-import cn.hutool.core.bean.BeanUtil;
-import cn.hutool.core.collection.CollUtil;
-import cn.hutool.http.HttpException;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.ankol.server.api.ClashApi;
-import org.ankol.server.api.entity.ClanMember;
-import org.ankol.server.api.entity.ClanPlayer;
-import org.ankol.server.api.entity.RaidSeason;
-import org.ankol.server.config.ClashProperties;
-import org.ankol.server.dao.ClanMemberRepository;
-import org.ankol.server.dao.RaidSeasonRepository;
-import org.ankol.server.dao.entity.ClanMemberEntity;
-import org.ankol.server.dao.entity.RaidSeasonEntity;
-import org.ankol.server.services.ClashDataOperationService;
-import org.ankol.server.tools.ClashUtil;
-import org.springframework.stereotype.Service;
+import cn.hutool.core.bean.BeanUtil
+import cn.hutool.core.collection.CollUtil
+import cn.hutool.http.HttpException
+import org.ankol.server.api.ClashApi
+import org.ankol.server.api.entity.RaidSeason.RaidSeasonMember
+import org.ankol.server.config.ClashProperties
+import org.ankol.server.dao.ClanMemberRepository
+import org.ankol.server.dao.RaidSeasonRepository
+import org.ankol.server.dao.entity.ClanMemberEntity
+import org.ankol.server.dao.entity.RaidSeasonEntity
+import org.ankol.server.dao.entity.RaidSeasonEntity.AttackMember
+import org.ankol.server.dao.entity.RaidSeasonEntity.AttackMember.AttackLog
+import org.ankol.server.dao.entity.RaidSeasonEntity.UnAttackMember
+import org.ankol.server.services.ClashDataOperationService
+import org.ankol.server.tools.ClashUtil
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.stereotype.Service
+import java.util.*
+import java.util.concurrent.ConcurrentHashMap
 
-import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
-
-@Slf4j
 @Service
-@RequiredArgsConstructor
-public class ClashDataOperationServiceImpl implements ClashDataOperationService {
-    private final ClashApi clashApi;
-    private final RaidSeasonRepository raidSeasonRepository;
-    private final ClanMemberRepository clanMemberRepository;
-    private final ClashProperties clashProperties;
+class ClashDataOperationServiceImpl : ClashDataOperationService {
+    private val log: Logger = LoggerFactory.getLogger(ClashDataOperationServiceImpl::class.java)
 
-    @Override
-    public boolean triggerRaidSeasonUpdate() {
+    @Autowired
+    private lateinit var clashApi: ClashApi
+
+    @Autowired
+    private lateinit var raidSeasonRepository: RaidSeasonRepository
+
+    @Autowired
+    private lateinit var clanMemberRepository: ClanMemberRepository
+
+    @Autowired
+    private lateinit var clashProperties: ClashProperties
+
+    override fun triggerRaidSeasonUpdate(): Boolean {
         try {
-            RaidSeasonEntity saveEntity = new RaidSeasonEntity();
+            val saveEntity = RaidSeasonEntity()
             //获取部落总成员数量
-            List<ClanMember> clanMembers = clashApi.clan.listMembers(clashProperties.getClanTag()).getItems();
+            val clanMembers = clashApi.clan.listMembers(clashProperties.clanTag).items
             //获取本赛季突袭周末数据
-            RaidSeason raidSeason = clashApi.clan.capitalRaidSeasons(clashProperties.getClanTag(), 1)
-                    .getItems()
-                    .get(0);
+            val raidSeason = clashApi.clan.capitalRaidSeasons(clashProperties.clanTag, 1).items[0]
             //临时变量.
-            Map<String, RaidSeasonEntity.AttackMember> attackMemberHashMap = new ConcurrentHashMap<>();
-            raidSeason.getMembers().parallelStream()
-                    .forEach(member -> {
-                        attackMemberHashMap.putIfAbsent(member.getTag(),
-                                new RaidSeasonEntity.AttackMember()
-                                        .setTag(member.getTag())
-                                        .setName(member.getName())
-                                        .setAttacks(member.getAttacks())
-                                        .setAttackLimit(member.getAttackLimit())
-                                        .setBonusAttackLimit(member.getBonusAttackLimit())
-                                        .setCapitalResourcesLooted(member.getCapitalResourcesLooted())
-                        );
-                    });
+            val attackMemberHashMap: MutableMap<String, AttackMember> = ConcurrentHashMap()
+            raidSeason.members.parallelStream()
+                .forEach { member: RaidSeasonMember ->
+                    attackMemberHashMap.putIfAbsent(
+                        member.tag,
+                        AttackMember()
+                            .setTag(member.tag)
+                            .setName(member.name)
+                            .setAttacks(member.attacks)
+                            .setAttackLimit(member.attackLimit)
+                            .setBonusAttackLimit(member.bonusAttackLimit)
+                            .setCapitalResourcesLooted(member.capitalResourcesLooted)
+                    )
+                }
             //获取未进攻成员数量
-            clanMembers.removeIf(item -> attackMemberHashMap.containsKey(item.getTag()));
+            clanMembers.removeIf { item -> attackMemberHashMap.containsKey(item.tag) }
             saveEntity.setNoAttackMembers(clanMembers.stream()
-                    .map(RaidSeasonEntity.UnAttackMember::convertFrom)
-                    .toList()
-            );
+                .map { member -> UnAttackMember.of(member) }
+                .toList()
+            )
 
             //1️⃣第一重循环（都城进攻日志，对应本周打了多少个都城）
-            for (int i = 0; i < raidSeason.getAttackLog().size(); i++) {
-                RaidSeason.RaidSeasonAttackLog raidSeasonAttackLog = raidSeason.getAttackLog().get(i);
+            for (i in raidSeason.attackLog.indices) {
+                val raidSeasonAttackLog = raidSeason.attackLog[i]
                 //2️⃣第二重循环（子城进攻信息，倒序遍历，即从子城到主城的顺序.）
-                for (int j = raidSeasonAttackLog.getDistricts().size(); j > 0; j--) {
-                    RaidSeason.RaidSeasonAttackLog.DistrictsDTO districts = raidSeasonAttackLog.getDistricts().get(j - 1);
+                for (j in raidSeasonAttackLog.districts.size downTo 1) {
+                    val districts = raidSeasonAttackLog.districts[j - 1]
                     //3️⃣第三重循环（获取每个子城的进攻详情，每个成员的进攻细节.）
-                    for (int k = districts.getAttacks().size(); k > 0; k--) {
+                    for (k in districts.attacks.size downTo 1) {
                         //进攻信息
-                        RaidSeason.RaidSeasonAttackLog.DistrictsDTO.AttacksDTO attackInfo = districts.getAttacks().get(k - 1);
+                        val attackInfo = districts.attacks[k - 1]
                         //获取进攻的成员信息.
-                        RaidSeasonEntity.AttackMember member = attackMemberHashMap.get(attackInfo.getAttacker().getTag());
+                        val member = attackMemberHashMap[attackInfo.attacker.tag]
                         //这里判断此成员是不是初次记录进攻日志.
-                        if (CollUtil.isEmpty(member.getAttackLogs())) {
-                            LinkedList<RaidSeasonEntity.AttackMember.AttackLog> logLinkedList = new LinkedList<>();
-                            logLinkedList.add(new RaidSeasonEntity.AttackMember.AttackLog()
+                        if (CollUtil.isEmpty(member!!.attackLogs)) {
+                            val logLinkedList = LinkedList<AttackLog>()
+                            logLinkedList.add(
+                                AttackLog()
                                     .setSequence(1)
-                                    .setStars(attackInfo.getStars())
-                                    .setDestructionPercent(attackInfo.getDestructionPercent())
-                            );
-                            member.setAttackLogs(logLinkedList);
+                                    .setStars(attackInfo.stars)
+                                    .setDestructionPercent(attackInfo.destructionPercent)
+                            )
+                            member.setAttackLogs(logLinkedList)
                         } else {
                             //不是初次记录，获取最新一条记录
-                            RaidSeasonEntity.AttackMember.AttackLog latest = member.getAttackLogs().get(member.getAttackLogs().size() - 1);
+                            val latest = member.attackLogs[member.attackLogs.size - 1]
                             //新增下一条.
-                            member.getAttackLogs()
-                                    .add(new RaidSeasonEntity.AttackMember.AttackLog()
-                                            .setSequence(latest.getSequence() + 1)
-                                            .setStars(attackInfo.getStars())
-                                            .setDestructionPercent(attackInfo.getDestructionPercent())
-                                    );
+                            member.attackLogs
+                                .add(
+                                    AttackLog()
+                                        .setSequence(latest.sequence + 1)
+                                        .setStars(attackInfo.stars)
+                                        .setDestructionPercent(attackInfo.destructionPercent)
+                                )
                         }
                     }
                 }
             }
             //赋值
-            saveEntity.setId(ClashUtil.getRaidSeasonId(raidSeason.getStartTime()))
-                    .setState(raidSeason.getState())
-                    .setCreateTime(new Date())
-                    .setDefensiveReward(raidSeason.getDefensiveReward())
-                    .setMembers(attackMemberHashMap.values().stream().sorted((o1, o2) -> {
-                        return Integer.compare(o2.getCapitalResourcesLooted(), o1.getCapitalResourcesLooted());
-                    }).toList())
-                    .setRaidStartTime(ClashUtil.formatterRaidSeasonTime(raidSeason.getStartTime()).toString(TimeZone.getDefault()))
-                    .setRaidEndTime(ClashUtil.formatterRaidSeasonTime(raidSeason.getEndTime()).toString(TimeZone.getDefault()))
-                    .setOffensiveReward(raidSeason.getOffensiveReward())
-                    .setDefensiveReward(raidSeason.getDefensiveReward())
-                    .setTotalAttacks(raidSeason.getTotalAttacks())
-                    .setRaidsCompleted(raidSeason.getRaidsCompleted())
-                    .setCapitalTotalLoot(raidSeason.getCapitalTotalLoot());
+            saveEntity.setId(ClashUtil.getRaidSeasonId(raidSeason.startTime))
+                .setState(raidSeason.state)
+                .setCreateTime(Date())
+                .setDefensiveReward(raidSeason.defensiveReward)
+                .setMembers(
+                    attackMemberHashMap.values.stream().sorted { o1: AttackMember, o2: AttackMember ->
+                        Integer.compare(
+                            o2.capitalResourcesLooted,
+                            o1.capitalResourcesLooted
+                        )
+                    }
+                        .toList())
+                .setRaidStartTime(
+                    ClashUtil.formatterRaidSeasonTime(raidSeason.startTime).toString(TimeZone.getDefault())
+                )
+                .setRaidEndTime(ClashUtil.formatterRaidSeasonTime(raidSeason.endTime).toString(TimeZone.getDefault()))
+                .setOffensiveReward(raidSeason.offensiveReward)
+                .setDefensiveReward(raidSeason.defensiveReward)
+                .setTotalAttacks(raidSeason.totalAttacks)
+                .setRaidsCompleted(raidSeason.raidsCompleted)
+                .setCapitalTotalLoot(raidSeason.capitalTotalLoot)
             //入库.
-            raidSeasonRepository.save(saveEntity);
-            return true;
-        } catch (HttpException e) {
-            log.error(e.getMessage());
-            return false;
+            raidSeasonRepository.save(saveEntity)
+            return true
+        } catch (e: HttpException) {
+            log.error(e.message)
+            return false
         }
     }
 
-    @Override
-    public List<ClanMemberEntity> triggerClanMemberUpdate() {
-        List<ClanMember> clanMembers = clashApi.clan.listMembers(clashProperties.getClanTag()).getItems();
+    override fun triggerClanMemberUpdate(): List<ClanMemberEntity> {
+        val clanMembers = clashApi.clan.listMembers(clashProperties.clanTag).items
 
-        ArrayList<ClanMemberEntity> saveEntity = new ArrayList<>(clanMembers.size());
+        val saveEntity = mutableListOf<ClanMemberEntity>()
 
-        for (ClanMember clanMember : clanMembers) {
-            ClanPlayer playerDetail = clashApi.player.getPlayerDetail(clanMember.getTag());
-            ClanMemberEntity clanMemberEntity = new ClanMemberEntity();
+        for (clanMember in clanMembers) {
+            val playerDetail = clashApi.player.getPlayerDetail(clanMember.tag)
+            val clanMemberEntity = ClanMemberEntity()
             //拷贝属性
-            BeanUtil.copyProperties(clanMember, clanMemberEntity, true);
+            BeanUtil.copyProperties(clanMember, clanMemberEntity, true)
 
             clanMemberEntity
-                    .setTownHallLevel(playerDetail.getTownHallLevel())
-                    .setTownHallWeaponLevel(playerDetail.getTownHallWeaponLevel());
+                .setTownHallLevel(playerDetail.townHallLevel)
+                .setTownHallWeaponLevel(playerDetail.townHallWeaponLevel)
 
-            saveEntity.add(clanMemberEntity);
+            saveEntity.add(clanMemberEntity)
         }
 
-        clanMemberRepository.saveAll(saveEntity);
+        clanMemberRepository.saveAll(saveEntity)
 
-        return saveEntity;
+        return saveEntity
     }
 }
